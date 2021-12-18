@@ -8,7 +8,6 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import routes, models
 
 def create_app(config_class=Config):
     # ...
@@ -34,3 +33,5 @@ def create_app(config_class=Config):
         app.logger.info('Microblog startup')
 
     return app
+
+from app import routes, models
