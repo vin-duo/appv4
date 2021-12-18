@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request
 from app import app, db
-from forms import Criar_ensaio, Alfa, Calcular
-from models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados
-from MAIN_dosagem import Ensaio
-from regressao import Regressao, Calculadora
+from app.forms import Criar_ensaio, Alfa, Calcular
+from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados
+from app.MAIN_dosagem import Ensaio
+from app.regressao import Regressao, Calculadora
 
 
 @app.route('/')
