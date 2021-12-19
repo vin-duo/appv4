@@ -23,6 +23,7 @@ MarkupSafe==2.0.1
 matplotlib==3.0.3
 mpmath==1.1.0
 numpy==1.19.0
+psycopg2-binary==2.9.2
 pyparsing==2.4.7
 python-dateutil==2.8.1
 requests==2.26.0
