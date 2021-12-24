@@ -1,10 +1,3 @@
-#NOVO CODIGO CERTO
-
-'''
-Este arquivo é o bloco de código principal do trabalho, onde serão reunidos todos os blocos de codigo
-das diferentes etapas para relizar os calculos necessarios para o ensaio de dosagem.
-
-'''
 
 class Ensaio():
     
@@ -65,41 +58,4 @@ class Ensaio():
         cimento = self.massas_iniciais()[0]
         ac = self.agua/cimento
         return(ac)
-
-
-
-#Conferir os resultados com os relatorios de aula do Americo.
-
-'''
-dosagem1 = Ensaio(m=3, alfa=0.3484, alfaantigo=0, pesobrita=35)
-print('valores unitarios: ')
-print(dosagem1.massas_unitarias()[0], dosagem1.massas_unitarias()[1], dosagem1.massas_unitarias()[2])
-
-
-print('valores massa: ')
-print(dosagem1.massas_iniciais()[0], dosagem1.massas_iniciais()[1], dosagem1.massas_iniciais()[2])
-
-print('valores adicionar: ')
-print(dosagem1.quantidades_adicionar()[0], dosagem1.quantidades_adicionar()[1])
-
-print('massas antigas: ')
-print(dosagem1.massas_iniciais_antigas()[0], dosagem1.massas_iniciais_antigas()[1])
-'''
-
-
-''' TESTE DE CALCULO DE UMIDADE
-dosagem = Ensaio(pesobrita = 35, alfa = 0.3269, umidade=2.4, m=4)
-print(dosagem.umidade_agregado())
-print(dosagem.massas_iniciais())
-'''
-
-
-
-'''
-
-traco = Ensaio(m = m_rico, alfa = form.alfa.data, pesobrita = pesobrita)
-a = traco.agua_cimento()
-print(a)
-
-'''
 

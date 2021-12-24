@@ -3,7 +3,7 @@ from app import app, db
 from app.forms import Criar_ensaio, Alfa, Calcular
 from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados
 from app.regressao import Regressao, Calculadora
-from app.maindosagem import Ensaio
+from app.traco_dosagem import Ensaio
 
 @app.route('/')
 @app.route('/home')
