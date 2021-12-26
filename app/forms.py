@@ -5,6 +5,18 @@ from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
 
 
+
+class Formulario_teste(FlaskForm):
+    valor = FloatField('Valor teste')
+    enviar = SubmitField('enviar para teste')
+
+
+
+
+
+
+
+
     # FORMS
 
 class Criar_ensaio(FlaskForm):
@@ -26,6 +38,8 @@ class Alfa(FlaskForm):
 class Calcular(FlaskForm):
     resistencia = FloatField('Resistencia')
     calcular = SubmitField('Calcular')
+
+
 
 
 '''

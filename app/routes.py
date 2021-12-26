@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from app import app, db
-from app.forms import Criar_ensaio, Alfa, Calcular
-from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados
+from app.forms import Criar_ensaio, Alfa, Calcular, Formulario_teste
+from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados, Teste
 from app.regressao import Regressao, Calculadora
 from app.traco_dosagem import Ensaio
 
@@ -10,6 +10,26 @@ from app.traco_dosagem import Ensaio
 def home():
     ensaios_registrados = Ensaios.query.all()
     return render_template('home.html', ensaios_registrados=ensaios_registrados)
+
+
+
+
+#TESTE
+
+@app.route('/teste', methods=['POST', 'GET'])
+def teste():
+
+    form = Formulario_teste()
+    if form.validate_on_submit():
+        a = Teste(stored=form.valor.data)
+        db.session.add(a)
+        db.session.commit()
+        return redirect('/home')
+    return render_template('teste.html', form=form)
+
+
+#TESTE
+
 
 @app.route('/user/<name>')
 def user(name):
@@ -126,7 +146,7 @@ def dosagem(id):
             indice = indice + 1
 
     if form.validate_on_submit():
-        add_no_db = Dosagem_piloto(alfa=form.alfa.data, agua=0, ensaio = ensaio_salvo)
+        add_no_db = Dosagem_piloto(alfa=form.alfa.data, agua=0, ensaio=ensaio_salvo)
         db.session.add(add_no_db)
         db.session.commit()
         return redirect ('/dosagem/{}'.format(id))
