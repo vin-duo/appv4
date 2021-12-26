@@ -21,14 +21,19 @@ def teste(id):
 
     form = Formulario_teste()
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
+
+    m = ensaio_salvo.piloto
+    pesobrita = ensaio_salvo.pesobrita
+    slump = ensaio_salvo.slump
+
+
     if form.validate_on_submit():
         a = Teste(stored=form.valor.data, ensaio=ensaio_salvo)
-
         db.session.add(a)
         db.session.commit()
         return redirect('/home')
-    return render_template('teste.html', form=form, id=id)
-#id no route, def, render_template
+    return render_template('teste.html', form=form, id=id, m=m, pesobrita=pesobrita, slump=slump)
+
 #TESTE
 
 
@@ -100,8 +105,6 @@ def dosagem(id):
 
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
     dosagens_do_ensaio_salvo = ensaio_salvo.dosagem_piloto
-    print('ensaio_salvo')
-    print(ensaio_salvo)
     m = ensaio_salvo.piloto
 #    cp = ensaio_salvo.cp
     pesobrita = ensaio_salvo.pesobrita
