@@ -16,18 +16,19 @@ def home():
 
 #TESTE
 
-@app.route('/teste', methods=['POST', 'GET'])
-def teste():
+@app.route('/teste/<int:id>', methods=['POST', 'GET'])
+def teste(id):
 
     form = Formulario_teste()
+    ensaio_salvo = Ensaios.query.filter_by(id=id).first()
     if form.validate_on_submit():
-        a = Teste(stored=form.valor.data)
+        a = Teste(stored=form.valor.data, ensaio=ensaio_salvo)
+
         db.session.add(a)
         db.session.commit()
         return redirect('/home')
-    return render_template('teste.html', form=form)
-
-
+    return render_template('teste.html', form=form, id=id)
+#id no route, def, render_template
 #TESTE
 
 
@@ -99,7 +100,8 @@ def dosagem(id):
 
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
     dosagens_do_ensaio_salvo = ensaio_salvo.dosagem_piloto
-
+    print('ensaio_salvo')
+    print(ensaio_salvo)
     m = ensaio_salvo.piloto
 #    cp = ensaio_salvo.cp
     pesobrita = ensaio_salvo.pesobrita

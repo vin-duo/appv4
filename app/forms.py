@@ -11,12 +11,6 @@ class Formulario_teste(FlaskForm):
     enviar = SubmitField('enviar para teste')
 
 
-
-
-
-
-
-
     # FORMS
 
 class Criar_ensaio(FlaskForm):
