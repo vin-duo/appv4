@@ -3,20 +3,20 @@ from app import db
 class Ensaios(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(30))
-    piloto = db.Column(db.Integer)
-    rico = db.Column(db.Integer)
-    pobre = db.Column(db.Integer)
-    cp = db.Column(db.Integer)
-    pesobrita = db.Column(db.Integer)
-    slump = db.Column(db.Integer)
-    umidade = db.Column(db.Integer)
-    dosagem_piloto = db.relationship('Dosagem_piloto', backref='ensaio')
-    dosagem_rico = db.relationship('Dosagem_rico', backref='ensaio')
-    dosagem_pobre = db.relationship('Dosagem_pobre', backref='ensaio')
-    cp_piloto = db.relationship('Cp_piloto', backref='ensaio')
-    cp_rico = db.relationship('Cp_rico', backref='ensaio')
-    cp_pobre = db.relationship('Cp_pobre', backref='ensaio')
-    resultados = db.relationship('Resultados', backref='ensaio')
+    piloto = db.Column(db.Float)
+    rico = db.Column(db.Float)
+    pobre = db.Column(db.Float)
+    cp = db.Column(db.Float)
+    pesobrita = db.Column(db.Float)
+    slump = db.Column(db.Float)
+    umidade = db.Column(db.Float)
+    dosagem_piloto = db.relationship('Dosagem_piloto', backref='ensaio', lazy='dynamic')
+    dosagem_rico = db.relationship('Dosagem_rico', backref='ensaio', lazy='dynamic')
+    dosagem_pobre = db.relationship('Dosagem_pobre', backref='ensaio', lazy='dynamic')
+    cp_piloto = db.relationship('Cp_piloto', backref='ensaio', lazy='dynamic')
+    cp_rico = db.relationship('Cp_rico', backref='ensaio', lazy='dynamic')
+    cp_pobre = db.relationship('Cp_pobre', backref='ensaio', lazy='dynamic')
+    resultados = db.relationship('Resultados', backref='ensaio', lazy='dynamic')
 
     def __repr__(self):
         return '\n<id: {}, nome: {} piloto: {}, rico: {}, pobre: {}, cp: {}, pesobrita: {}, slump: {}, umidade: {}, relation {} >'.format(self.id, self.nome, self.piloto, self.rico, self.pobre, self.cp, self.pesobrita, self.slump, self.umidade, self.dosagem_piloto)
@@ -51,23 +51,23 @@ class Dosagem_piloto(db.Model):
 
 class Dosagem_rico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    alfa = db.Column(db.Integer)
+    alfa = db.Column(db.Float)
 
-    c_unitario = db.Column(db.Integer)
-    a_unitario = db.Column(db.Integer)
-    b_unitario = db.Column(db.Integer)
+    c_unitario = db.Column(db.Float)
+    a_unitario = db.Column(db.Float)
+    b_unitario = db.Column(db.Float)
 
-    c_massa = db.Column(db.Integer)
-    a_massa = db.Column(db.Integer)
-    b_massa = db.Column(db.Integer)
+    c_massa = db.Column(db.Float)
+    a_massa = db.Column(db.Float)
+    b_massa = db.Column(db.Float)
     
-    c_acr = db.Column(db.Integer)
-    a_acr= db.Column(db.Integer)
+    c_acr = db.Column(db.Float)
+    a_acr= db.Column(db.Float)
     
-    a_massa_umida = db.Column(db.Integer)    
-    umidade_agregado = db.Column(db.Integer)
-    agua = db.Column(db.Integer)
-    agua_cimento = db.Column(db.Integer)
+    a_massa_umida = db.Column(db.Float)    
+    umidade_agregado = db.Column(db.Float)
+    agua = db.Column(db.Float)
+    agua_cimento = db.Column(db.Float)
 
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
@@ -77,23 +77,23 @@ class Dosagem_rico(db.Model):
 
 class Dosagem_pobre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    alfa = db.Column(db.Integer)
+    alfa = db.Column(db.Float)
 
-    c_unitario = db.Column(db.Integer)
-    a_unitario = db.Column(db.Integer)
-    b_unitario = db.Column(db.Integer)
+    c_unitario = db.Column(db.Float)
+    a_unitario = db.Column(db.Float)
+    b_unitario = db.Column(db.Float)
     
-    c_massa = db.Column(db.Integer)
-    a_massa = db.Column(db.Integer)
-    b_massa = db.Column(db.Integer)
+    c_massa = db.Column(db.Float)
+    a_massa = db.Column(db.Float)
+    b_massa = db.Column(db.Float)
     
-    c_acr = db.Column(db.Integer)
-    a_acr= db.Column(db.Integer)
+    c_acr = db.Column(db.Float)
+    a_acr= db.Column(db.Float)
     
-    a_massa_umida = db.Column(db.Integer)
-    umidade_agregado = db.Column(db.Integer)
-    agua = db.Column(db.Integer)
-    agua_cimento = db.Column(db.Integer)
+    a_massa_umida = db.Column(db.Float)
+    umidade_agregado = db.Column(db.Float)
+    agua = db.Column(db.Float)
+    agua_cimento = db.Column(db.Float)
 
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
@@ -103,7 +103,7 @@ class Dosagem_pobre(db.Model):
 
 class Cp_piloto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    resistencia = db.Column(db.Integer)
+    resistencia = db.Column(db.Float)
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
     def __repr__(self):
@@ -112,7 +112,7 @@ class Cp_piloto(db.Model):
 
 class Cp_rico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    resistencia = db.Column(db.Integer)
+    resistencia = db.Column(db.Float)
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
     def __repr__(self):
@@ -121,7 +121,7 @@ class Cp_rico(db.Model):
 
 class Cp_pobre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    resistencia = db.Column(db.Integer)
+    resistencia = db.Column(db.Float)
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
     def __repr__(self):
@@ -130,12 +130,12 @@ class Cp_pobre(db.Model):
 
 class Resultados(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    k1 = db.Column(db.Integer)
-    k2 = db.Column(db.Integer)
-    k3 = db.Column(db.Integer)
-    k4 = db.Column(db.Integer)
-    k5 = db.Column(db.Integer)
-    k6 = db.Column(db.Integer)
+    k1 = db.Column(db.Float)
+    k2 = db.Column(db.Float)
+    k3 = db.Column(db.Float)
+    k4 = db.Column(db.Float)
+    k5 = db.Column(db.Float)
+    k6 = db.Column(db.Float)
 
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
