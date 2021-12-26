@@ -24,23 +24,23 @@ class Ensaios(db.Model):
 
 class Dosagem_piloto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    alfa = db.Column(db.Integer)
+    alfa = db.Column(db.Float)
 
-    c_unitario = db.Column(db.Integer)
-    a_unitario = db.Column(db.Integer)
-    b_unitario = db.Column(db.Integer)
+    c_unitario = db.Column(db.Float)
+    a_unitario = db.Column(db.Float)
+    b_unitario = db.Column(db.Float)
     
-    c_massa = db.Column(db.Integer)
-    a_massa = db.Column(db.Integer)
-    b_massa = db.Column(db.Integer)
+    c_massa = db.Column(db.Float)
+    a_massa = db.Column(db.Float)
+    b_massa = db.Column(db.Float)
     
-    c_acr = db.Column(db.Integer)
-    a_acr= db.Column(db.Integer)
+    c_acr = db.Column(db.Float)
+    a_acr= db.Column(db.Float)
 
-    a_massa_umida = db.Column(db.Integer)    
-    umidade_agregado = db.Column(db.Integer)
-    agua = db.Column(db.Integer)
-    agua_cimento = db.Column(db.Integer)
+    a_massa_umida = db.Column(db.Float)    
+    umidade_agregado = db.Column(db.Float)
+    agua = db.Column(db.Float)
+    agua_cimento = db.Column(db.Float)
 
     indice = db.Column(db.Integer)
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
