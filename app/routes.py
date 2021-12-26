@@ -21,10 +21,28 @@ def teste(id):
 
     form = Formulario_teste()
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
+    dosagens_do_ensaio_salvo = ensaio_salvo.teste
 
     m = ensaio_salvo.piloto
     pesobrita = ensaio_salvo.pesobrita
     slump = ensaio_salvo.slump
+
+    mensagem = 'nada'
+    if dosagens_do_ensaio_salvo != []:
+        mensagem = 'dosagens_do_ensaio_salvo nao esta vazio'
+        contador = 0
+        indice = 0
+
+        for i in dosagens_do_ensaio_salvo:
+            alfa = i.a
+
+            if contador == 0:
+                alfaantigo = 0
+            else:
+                alfaantigo = dosagens_do_ensaio_salvo[contador-1].alfa
+
+
+
 
 
     if form.validate_on_submit():
@@ -32,7 +50,7 @@ def teste(id):
         db.session.add(a)
         db.session.commit()
         return redirect('/home')
-    return render_template('teste.html', form=form, id=id, m=m, pesobrita=pesobrita, slump=slump)
+    return render_template('teste.html', form=form, id=id, m=m, pesobrita=pesobrita, slump=slump, mensagem=mensagem, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo)
 
 #TESTE
 

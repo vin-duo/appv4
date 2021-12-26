@@ -18,7 +18,7 @@ class Ensaios(db.Model):
     cp_rico = db.relationship('Cp_rico', backref='ensaio')
     cp_pobre = db.relationship('Cp_pobre', backref='ensaio')
     resultados = db.relationship('Resultados', backref='ensaio')
-    teste_id = db.relationship('Teste', backref='ensaio')
+    teste = db.relationship('Teste', backref='ensaio')
     def __repr__(self):
         return '\n<id: {}, nome: {} piloto: {}, rico: {}, pobre: {}, cp: {}, pesobrita: {}, slump: {}, umidade: {}, relation {} >'.format(self.id, self.nome, self.piloto, self.rico, self.pobre, self.cp, self.pesobrita, self.slump, self.umidade, self.dosagem_piloto)
 
@@ -26,9 +26,16 @@ class Ensaios(db.Model):
 
 class Teste(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    stored = db.Column(db.Float)
+    a = db.Column(db.Float)
+    cu = db.Column(db.Float)
+    au = db.Column(db.Float)
+    bu = db.Column(db.Float)
+    cm = db.Column(db.Float)
+    am = db.Column(db.Float)
+    bm = db.Column(db.Float)
+    cacr = db.Column(db.Float)
+    aacr = db.Column(db.Float)
     teste_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
-
 
 
 
