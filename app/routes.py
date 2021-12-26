@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 from app import app, db
-from app.forms import Criar_ensaio, Alfa, Calcular, Formulario_teste
+from app.forms import Criar_ensaio, Alfa, Alfa_auxiliar, Calcular, Formulario_teste
 from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados, Teste
 from app.regressao import Regressao, Calculadora
 from app.traco_dosagem import Ensaio
@@ -246,13 +246,13 @@ def update_agua_pobre():#o nome "valor_alfa" é o nome dado no html para um elem
 @app.route('/auxiliar/<int:id>', methods=['POST', 'GET'])
 def dosagem_auxiliar(id):
 
-    form = Alfa()
+    form = Alfa_auxiliar()
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
 
     m_rico = ensaio_salvo.rico
     m_pobre = ensaio_salvo.pobre
 #    cp = ensaio_salvo.cp
-    alfa = form.alfa.data
+    alfa = form.alfa_auxiliar.data
     pesobrita = ensaio_salvo.pesobrita
     slump = ensaio_salvo.slump
 
@@ -261,11 +261,11 @@ def dosagem_auxiliar(id):
         if ensaio_salvo.dosagem_rico == []:
             traco = Ensaio(
                 m = m_rico,
-                alfa = form.alfa.data, 
+                alfa = form.alfa_auxiliar.data, 
                 pesobrita = pesobrita)
 
             add_no_db_rico = Dosagem_rico(
-                alfa = form.alfa.data,
+                alfa = form.alfa_auxiliar.data,
                 c_unitario = traco.massas_unitarias()[0],
                 a_unitario = traco.massas_unitarias()[1],
                 b_unitario = traco.massas_unitarias()[2],
@@ -282,11 +282,11 @@ def dosagem_auxiliar(id):
 
             traco = Ensaio(
                 m = m_pobre,
-                alfa = form.alfa.data, 
+                alfa = form.alfa_auxiliar.data, 
                 pesobrita = pesobrita)
 
             add_no_db_pobre = Dosagem_pobre(
-                alfa = form.alfa.data,
+                alfa = form.alfa_auxiliar.data,
                 c_unitario = traco.massas_unitarias()[0],
                 a_unitario = traco.massas_unitarias()[1],
                 b_unitario = traco.massas_unitarias()[2],
@@ -314,11 +314,11 @@ def dosagem_auxiliar(id):
 
             traco = Ensaio(
                 m = m_rico,
-                alfa = form.alfa.data, 
+                alfa = form.alfa_auxiliar.data, 
                 pesobrita = pesobrita)
 
             add_no_db_rico = Dosagem_rico(
-                alfa = form.alfa.data,
+                alfa = form.alfa_auxiliar.data,
                 c_unitario = traco.massas_unitarias()[0],
                 a_unitario = traco.massas_unitarias()[1],
                 b_unitario = traco.massas_unitarias()[2],
@@ -335,11 +335,11 @@ def dosagem_auxiliar(id):
 
             traco = Ensaio(
                 m = m_pobre,
-                alfa = form.alfa.data, 
+                alfa = form.alfa_auxiliar.data, 
                 pesobrita = pesobrita)
 
             add_no_db_pobre = Dosagem_pobre(
-                alfa = form.alfa.data,
+                alfa = form.alfa_auxiliar.data,
                 c_unitario = traco.massas_unitarias()[0],
                 a_unitario = traco.massas_unitarias()[1],
                 b_unitario = traco.massas_unitarias()[2],
