@@ -39,17 +39,37 @@ def teste(id):
             if contador == 0:
                 alfaantigo = 0
             else:
-                alfaantigo = dosagens_do_ensaio_salvo[contador-1].alfa
+                alfaantigo = dosagens_do_ensaio_salvo[contador-1].a
 
+            traco = Ensaio(
+                m = m,
+                alfa = alfa, 
+                pesobrita = pesobrita,
+                alfaantigo = alfaantigo)
+            i.a = alfa
+            i.cu = traco.massas_unitarias()[0]
+            i.au = traco.massas_unitarias()[1]
+            i.bu = traco.massas_unitarias()[2]
 
+            i.cm = traco.massas_iniciais()[0]
+            i.am = traco.massas_iniciais()[1]
+            i.bm = traco.massas_iniciais()[2]
+            
+            i.cacr = traco.quantidades_adicionar()[0]
+            i.aacr = traco.quantidades_adicionar()[1]
 
+            i.ensaio = ensaio_salvo
+
+            db.session.commit()
+            contador = contador + 1
+            indice = indice + 1
 
 
     if form.validate_on_submit():
-        a = Teste(stored=form.valor.data, ensaio=ensaio_salvo)
-        db.session.add(a)
+        testando = Teste(a=form.valor.data, ensaio=ensaio_salvo)
+        db.session.add(testando)
         db.session.commit()
-        return redirect('/home')
+        return redirect('/teste/{}'.format(id))
     return render_template('teste.html', form=form, id=id, m=m, pesobrita=pesobrita, slump=slump, mensagem=mensagem, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo)
 
 #TESTE
