@@ -194,7 +194,7 @@ def dosagem_auxiliar(id):
     slump = ensaio_salvo.slump
 
     if form.validate_on_submit():
-
+        print(ensaio_salvo.dosagem_rico)
         if ensaio_salvo.dosagem_rico == []:
             traco = Ensaio(
                 m = m_rico,
