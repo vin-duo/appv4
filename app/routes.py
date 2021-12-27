@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from app import app, db
 from app.forms import Criar_ensaio, Alfa, Alfa_auxiliar, Calcular, Formulario_teste
-from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados, Teste
+from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados, Teste, Consumo_piloto, Consumo_rico, Consumo_pobre
 from app.regressao import Regressao, Calculadora
 from app.traco_dosagem import Ensaio
 
@@ -15,7 +15,6 @@ def home():
 
 
 #TESTE
-
 @app.route('/teste/<int:id>', methods=['POST', 'GET'])
 def teste(id):
 
@@ -71,7 +70,6 @@ def teste(id):
         db.session.commit()
         return redirect('/teste/{}'.format(id))
     return render_template('teste.html', form=form, id=id, m=m, pesobrita=pesobrita, slump=slump, mensagem=mensagem, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo)
-
 #TESTE
 
 
@@ -92,7 +90,8 @@ def criar():
         rico = form.rico.data,
         pobre = form.pobre.data,
         pesobrita = form.pesobrita.data,
-        slump = form.slump.data)
+        slump = form.slump.data,
+        volume = form.volume_recipiente.data)
         db.session.add(novo_ensaio)
         db.session.commit()
 
@@ -129,12 +128,10 @@ def editar_ensaio(id):
         editar.pesobrita = form.pesobrita.data
         editar.slump = form.slump.data
 #        editar.umidade = form.umidade.data
+        editar.volume = form.volume_recipiente.data
         db.session.commit()
         return redirect('/home')
     return render_template('editar_ensaio.html', form=form, editar=editar)
-
-
-
 
 
 @app.route('/dosagem/<int:id>', methods=['POST', 'GET'])
@@ -196,9 +193,6 @@ def dosagem(id):
     return render_template("dosagem.html", form=form, id=id, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo, m=m, slump=slump, pesobrita=pesobrita)
 
 
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 @app.route("/agua", methods=["POST"])
 def update_agua():#o nome "valor_alfa" é o nome dado no html para um elemento na tabela do db. Quando cria uma linha no db, a tabela chama essa linha de "valor_alfa", que tem as propriedades "id", "alfa", "agua"......
     i_id = request.form.get("i_id")
@@ -231,17 +225,6 @@ def update_agua_pobre():#o nome "valor_alfa" é o nome dado no html para um elem
     a = nova_agua.ensaio.id
     return redirect("/auxiliar/{}".format(a))
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-
-
-
-
-
-
-
 
 @app.route('/auxiliar/<int:id>', methods=['POST', 'GET'])
 def dosagem_auxiliar(id):
@@ -257,7 +240,6 @@ def dosagem_auxiliar(id):
     slump = ensaio_salvo.slump
 
     if form.validate_on_submit():
-        print(ensaio_salvo.dosagem_rico)
         if ensaio_salvo.dosagem_rico == []:
             traco = Ensaio(
                 m = m_rico,
@@ -381,7 +363,7 @@ def delete(id):
 
 @app.route('/dosagem_auxiliar/delete/<int:id>')#esse id é da linha na tabela Dosagem_piloto
 def delete_auxiliar(id):
-    #linha da dosagem a ser deletara
+    #linha da dosagem a ser deletada
     dosagem_deletada_rico = Dosagem_rico.query.filter_by(id=id).first()
     dosagem_deletada_pobre = Dosagem_pobre.query.filter_by(id=id).first()
 
@@ -425,6 +407,65 @@ def corpo_de_prova(id):
             db.session.commit()
         return redirect('/corpo_de_prova/{}'.format(id))
     return render_template('corpo_de_prova.html', id=id, cps_piloto=cps_piloto, cps_rico=cps_rico, cps_pobre=cps_pobre, ensaio_salvo=ensaio_salvo)
+
+
+
+
+#@@@@@@@@@@@@@@@@@@@@@@
+
+@app.route('/consumo_cimento/<int:id>', methods=['POST', 'GET'])
+def consumo_cimento(id):
+
+    ensaio_salvo = Ensaios.query.filter_by(id=id).first()
+    consumo_piloto_salvo = Consumo_piloto.query.filter_by(kg_piloto_id=id).first()
+    consumo_pobre_salvo = Consumo_pobre.query.filter_by(kg_pobre_id=id).first()
+    consumo_rico_salvo = Consumo_rico.query.filter_by(kg_rico_id=id).first()
+
+    massa_piloto = Cp_piloto.query.all()
+    massa_rico = Cp_rico.query.all()
+    massa_pobre = Cp_pobre.query.all()
+
+    m_piloto = request.form.get("massa_piloto")
+    m_rico = request.form.get("massa_rico")
+    m_pobre = request.form.get("massa_pobre")
+    if request.method == 'POST':
+        if m_piloto != "":
+            if consumo_piloto_salvo == None:
+                kg_piloto = Consumo_piloto(kg_piloto=m_piloto, ensaio=ensaio_salvo)
+                db.session.add(kg_piloto)
+                db.session.commit()
+            else:
+                consumo_piloto_salvo.kg_piloto = m_piloto
+                db.session.commit()
+        if m_rico != "":
+            if consumo_rico_salvo == None:
+                kg_rico = Consumo_rico(kg_rico=m_rico, ensaio=ensaio_salvo)
+                db.session.add(kg_rico)
+                db.session.commit()
+            else:
+                consumo_rico_salvo.kg_rico = m_rico
+                db.session.commit()
+        if m_pobre != "":
+            if consumo_pobre_salvo == None:
+                kg_pobre = Consumo_pobre(kg_pobre=m_pobre, ensaio=ensaio_salvo)
+                db.session.add(kg_pobre)
+                db.session.commit()
+            else:
+                consumo_pobre_salvo.kg_pobre = m_pobre
+                db.session.commit()
+        return redirect('/consumo_cimento/{}'.format(id))
+    return render_template('consumo.html', id=id, massa_piloto=massa_piloto, massa_rico=massa_rico, massa_pobre=massa_pobre, ensaio_salvo=ensaio_salvo)
+
+#@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/corpo_de_prova/deletar_piloto/<int:id>')

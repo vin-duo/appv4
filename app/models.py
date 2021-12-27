@@ -1,6 +1,21 @@
 from app import db
 
 
+class Consumo_piloto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    kg_piloto = db.Column(db.Float)
+    kg_piloto_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
+
+class Consumo_rico(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    kg_rico = db.Column(db.Float)
+    kg_rico_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
+
+class Consumo_pobre(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    kg_pobre = db.Column(db.Float)
+    kg_pobre_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
+
 class Ensaios(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(30))
@@ -11,6 +26,7 @@ class Ensaios(db.Model):
     pesobrita = db.Column(db.Float)
     slump = db.Column(db.Float)
     umidade = db.Column(db.Float)
+    volume = db.Column(db.Float)
     dosagem_piloto = db.relationship('Dosagem_piloto', backref='ensaio')
     dosagem_rico = db.relationship('Dosagem_rico', backref='ensaio')
     dosagem_pobre = db.relationship('Dosagem_pobre', backref='ensaio')
@@ -19,6 +35,9 @@ class Ensaios(db.Model):
     cp_pobre = db.relationship('Cp_pobre', backref='ensaio')
     resultados = db.relationship('Resultados', backref='ensaio')
     teste = db.relationship('Teste', backref='ensaio')
+    consumo_piloto = db.relationship('Consumo_piloto', backref='ensaio')
+    consumo_rico = db.relationship('Consumo_rico', backref='ensaio')
+    consumo_pobre = db.relationship('Consumo_pobre', backref='ensaio')
     def __repr__(self):
         return '\n<id: {}, nome: {} piloto: {}, rico: {}, pobre: {}, cp: {}, pesobrita: {}, slump: {}, umidade: {}, relation {} >'.format(self.id, self.nome, self.piloto, self.rico, self.pobre, self.cp, self.pesobrita, self.slump, self.umidade, self.dosagem_piloto)
 
@@ -26,6 +45,7 @@ class Ensaios(db.Model):
 
 class Teste(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
     a = db.Column(db.Float)
     cu = db.Column(db.Float)
     au = db.Column(db.Float)
@@ -36,7 +56,7 @@ class Teste(db.Model):
     cacr = db.Column(db.Float)
     aacr = db.Column(db.Float)
     teste_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
-
+#falta a agua
 
 
 class Dosagem_piloto(db.Model):

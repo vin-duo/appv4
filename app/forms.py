@@ -22,7 +22,7 @@ class Criar_ensaio(FlaskForm):
     pesobrita = FloatField('Brita (kg)')
     slump = FloatField('slump (mm)')
 #    umidade = FloatField('umidade (%)')
-
+    volume_recipiente = FloatField('Volume do recipiente (m3)')
     submit = SubmitField('Registrar')
 
 class Alfa(FlaskForm):
