@@ -158,7 +158,7 @@ def dosagem(id):
             if contador == 0:
                 alfaantigo = 0
             else:
-                alfaantigo = dosagens_do_ensaio_salvo[contador-1].alfa
+                alfaantigo = alfa_ordenado[contador-1].alfa
 
             traco = Ensaio(
                 m = m,
