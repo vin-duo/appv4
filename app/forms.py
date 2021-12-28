@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, SubmitField, FloatField
+from wtforms import StringField, SubmitField, FloatField, SelectField
 from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
 
@@ -8,6 +8,7 @@ from wtforms.validators import DataRequired
 
 class Formulario_teste(FlaskForm):
     valor = FloatField('Valor teste')
+    selection = SelectField('Selecione: ', choices=[('7', '7'),('20', '20'),('28','28')])
     enviar = SubmitField('enviar para teste')
 
 

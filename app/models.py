@@ -141,6 +141,7 @@ class Dosagem_pobre(db.Model):
 class Cp_piloto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     resistencia = db.Column(db.Float)
+    idade = db.Column(db.Integer)
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
     def __repr__(self):
@@ -150,6 +151,7 @@ class Cp_piloto(db.Model):
 class Cp_rico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     resistencia = db.Column(db.Float)
+    idade = db.Column(db.Integer)
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
     def __repr__(self):
@@ -159,6 +161,7 @@ class Cp_rico(db.Model):
 class Cp_pobre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     resistencia = db.Column(db.Float)
+    idade = db.Column(db.Integer)
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
     def __repr__(self):

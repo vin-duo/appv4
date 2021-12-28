@@ -101,10 +101,24 @@ def criar():
 
 @app.route('/home/<int:id>')
 def apagar_ensaio(id):
-    apagar = Ensaios.query.get_or_404(id)
+    '''
+    apagar_resultado = Resultados.query.get_or_404(id)
+    apagar_consumo_piloto = Consumo_piloto.query.get_or_404(id)
+    apagar_consumo_rico = Consumo_rico.query.get_or_404(id)
+    apagar_consumo_pobre = Consumo_pobre.query.get_or_404(id)
+    apagar_cp_rico = Cp_rico.query.get_or_404(id)
+    apagar_cp_rico = Cp_rico.query.get_or_404(id)
+    apagar_cp_rico = Cp_rico.query.get_or_404(id)
+    apagar_rico = Dosagem_rico.query.get_or_404(id)
+    apagar_pobre = Dosagem_pobre.query.get_or_404(id)
+    apagar_piloto = Dosagem_piloto.query.get_or_404(id)
+    '''
+    print('Cp_rico.query.get_or_404(id)')
+    print(Cp_rico.query.get_or_404(id))
+    apagar_ensaio = Ensaios.query.get_or_404(id)
 
     try:
-        db.session.delete(apagar)
+        db.session.delete(apagar_ensaio)
         db.session.commit()
         return redirect('/home')
 
@@ -146,9 +160,7 @@ def dosagem(id):
     slump = ensaio_salvo.slump
 #    umidade = ensaio_salvo.umidade
 
-    print('Dosagem_piloto.query.order_by(Dosagem_piloto.alfa).all()')
-    print(Dosagem_piloto.query.order_by(Dosagem_piloto.alfa).all()) 
-    alfa_ordenado = Dosagem_piloto.query.order_by(Dosagem_piloto.alfa).all()
+    alfa_ordenado = Dosagem_piloto.query.filter_by(ensaio_id=id).order_by(Dosagem_piloto.alfa).all()
     if dosagens_do_ensaio_salvo != []:
         contador = 0
         indice = 0
@@ -394,18 +406,18 @@ def corpo_de_prova(id):
     r_piloto = request.form.get("resistencia_piloto")
     r_rico = request.form.get("resistencia_rico")
     r_pobre = request.form.get("resistencia_pobre")
-
     if request.method == 'POST':
+        age = request.form.get("selectfield")
         if r_piloto != "":
-            cp_piloto = Cp_piloto(resistencia=r_piloto, ensaio=ensaio_salvo)
+            cp_piloto = Cp_piloto(resistencia=r_piloto, idade=age, ensaio=ensaio_salvo)
             db.session.add(cp_piloto)
             db.session.commit()
         if r_rico != "":
-            cp_rico = Cp_rico(resistencia=r_rico, ensaio=ensaio_salvo)
+            cp_rico = Cp_rico(resistencia=r_rico, idade=age, ensaio=ensaio_salvo)
             db.session.add(cp_rico)
             db.session.commit()
         if r_pobre != "":
-            cp_pobre = Cp_pobre(resistencia=r_pobre, ensaio=ensaio_salvo)
+            cp_pobre = Cp_pobre(resistencia=r_pobre, idade=age, ensaio=ensaio_salvo)
             db.session.add(cp_pobre)
             db.session.commit()
         return redirect('/corpo_de_prova/{}'.format(id))
