@@ -113,8 +113,7 @@ def apagar_ensaio(id):
     apagar_pobre = Dosagem_pobre.query.get_or_404(id)
     apagar_piloto = Dosagem_piloto.query.get_or_404(id)
     '''
-    print('Cp_rico.query.get_or_404(id)')
-    print(Cp_rico.query.get_or_404(id))
+
     apagar_ensaio = Ensaios.query.get_or_404(id)
 
     try:
