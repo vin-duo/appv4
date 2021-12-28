@@ -521,27 +521,15 @@ def resultados(id):
     acp = sum(a)/d.dosagem_piloto[-1].c_massa
     acr = d.dosagem_rico[-1].agua/d.dosagem_rico[-1].c_massa
     acpb = d.dosagem_pobre[-1].agua/d.dosagem_pobre[-1].c_massa
-#    print('calculo agua cimento pobre')
-#    print('agua: {}'.format(d.dosagem_pobre[-1].agua))
-#    print('cimento: {}'.format(d.dosagem_pobre[-1].c_massa))
-
 
 #resistencias
     p = d.cp_piloto
     ri = d.cp_rico
     pb = d.cp_pobre
 
-#    print('d.cp_piloto')
-#    print(Cp_piloto.query.all())
-#    print(Cp_piloto.query.count())
-    print(Cp_piloto.query.filter_by(ensaio_id=id).count())#contando o numero de corpos de prova salvos para o ensaio com esse id (se eu to no ensaio id=3, conto o numero de linhas de corpo de prova do ensaio id=3)
-
     numero_de_cp_rico = Cp_rico.query.filter_by(ensaio_id=id).count()
     numero_de_cp_piloto = Cp_piloto.query.filter_by(ensaio_id=id).count()
     numero_de_cp_pobre = Cp_pobre.query.filter_by(ensaio_id=id).count()
-#    print(numero_de_cp_rico)
-#    print(numero_de_cp_piloto)
-#    print(numero_de_cp_pobre)
 
     media_resistencia_rico = 0
     media_resistencia_piloto = 0
@@ -550,6 +538,20 @@ def resultados(id):
     resistencias_piloto = Cp_piloto.query.filter_by(ensaio_id=id).all()
     resistencias_rico = Cp_rico.query.filter_by(ensaio_id=id).all()
     resistencias_pobre = Cp_pobre.query.filter_by(ensaio_id=id).all()
+
+
+    kgp = Consumo_piloto.query.filter_by(kg_piloto_id=id).first().kg_piloto
+    kgr = Consumo_rico.query.filter_by(kg_rico_id=id).first().kg_rico
+    kgpb = Consumo_pobre.query.filter_by(kg_pobre_id=id).first().kg_pobre
+    print('kgp')
+    print(kgp)
+    recipiente = d.volume
+    gamap = kgp/recipiente
+    gamar = kgr/recipiente
+    gamapb = kgpb/recipiente
+    consumop = gamap / (1+d.piloto+acp)
+    consumor = gamar / (1+d.piloto+acr)
+    consumopb = gamapb / (1+d.piloto+acpb)
 
     for i in resistencias_piloto:
         media_resistencia_piloto = media_resistencia_piloto + i.resistencia/numero_de_cp_piloto
@@ -560,19 +562,13 @@ def resultados(id):
     for i in resistencias_pobre:
         media_resistencia_pobre = media_resistencia_pobre + i.resistencia/numero_de_cp_pobre
 
-    print('resultados:')
-    print(media_resistencia_pobre)
-    print(media_resistencia_rico)
-    print(media_resistencia_piloto)
-
     rr = [pb[0].resistencia, p[0].resistencia, ri[0].resistencia]
     ac = [acpb, acp, acr]
     m = [d.pobre, d.piloto, d.rico]
-    cc = [295,371,479]
+    cc = [consumopb,consumop,consumor]
+
 #PRECISO COLOCAR INPUT DE DADOS PARA OS VALORES DE "C"!!!!
     r = Regressao(rr, ac, m, cc)
-    print('rr')
-    print(rr)
     if d.resultados == []:
         resultado = Resultados(k1=r.k1(), k2=r.k2(), k3=r.k3(), k4=r.k4(), k5=r.k5(), k6=r.k6(), ensaio=d)
         db.session.add(resultado)
