@@ -130,7 +130,7 @@ def editar_ensaio(id):
     form = Criar_ensaio()
 
     editar = Ensaios.query.get_or_404(id)
-    
+    print(editar.volume)
     if form.validate_on_submit():
         editar.nome = form.nome.data
         editar.piloto = form.piloto.data
@@ -420,17 +420,20 @@ def corpo_de_prova(id):
 def consumo_cimento(id):
 
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
-    consumo_piloto_salvo = Consumo_piloto.query.filter_by(kg_piloto_id=id).first()
-    consumo_pobre_salvo = Consumo_pobre.query.filter_by(kg_pobre_id=id).first()
-    consumo_rico_salvo = Consumo_rico.query.filter_by(kg_rico_id=id).first()
+    consumo_piloto_salvo = Consumo_piloto.query.filter_by(ensaio_id=id).first()
+    consumo_pobre_salvo = Consumo_pobre.query.filter_by(ensaio_id=id).first()
+    consumo_rico_salvo = Consumo_rico.query.filter_by(ensaio_id=id).first()
 
-    massa_piloto = Cp_piloto.query.all()
-    massa_rico = Cp_rico.query.all()
-    massa_pobre = Cp_pobre.query.all()
-
+    recipiente = ensaio_salvo.volume
+    '''
+    massa_piloto = consumo_piloto_salvo.kg_piloto
+    massa_rico = consumo_pobre_salvo.kg_rico
+    massa_pobre = consumo_rico_salvo.kg_pobre
+    '''
     m_piloto = request.form.get("massa_piloto")
     m_rico = request.form.get("massa_rico")
     m_pobre = request.form.get("massa_pobre")
+
     if request.method == 'POST':
         if m_piloto != "":
             if consumo_piloto_salvo == None:
@@ -457,7 +460,7 @@ def consumo_cimento(id):
                 consumo_pobre_salvo.kg_pobre = m_pobre
                 db.session.commit()
         return redirect('/consumo_cimento/{}'.format(id))
-    return render_template('consumo.html', id=id, massa_piloto=massa_piloto, massa_rico=massa_rico, massa_pobre=massa_pobre, ensaio_salvo=ensaio_salvo)
+    return render_template('consumo.html', id=id, consumo_piloto_salvo=consumo_piloto_salvo, consumo_pobre_salvo=consumo_pobre_salvo, consumo_rico_salvo=consumo_rico_salvo, ensaio_salvo=ensaio_salvo, recipiente=recipiente)
 
 
 @app.route('/corpo_de_prova/deletar_piloto/<int:id>')
@@ -524,14 +527,13 @@ def resultados(id):
     media_resistencia_piloto = 0
     media_resistencia_pobre = 0
 
-    resistencias_piloto = Cp_piloto.query.filter_by(ensaio_id=id).all()
-    resistencias_rico = Cp_rico.query.filter_by(ensaio_id=id).all()
-    resistencias_pobre = Cp_pobre.query.filter_by(ensaio_id=id).all()
+    resistencias_piloto = Cp_piloto.query.filter_by(ensaio_id=id, idade=28).all()
+    resistencias_rico = Cp_rico.query.filter_by(ensaio_id=id, idade=28).all()
+    resistencias_pobre = Cp_pobre.query.filter_by(ensaio_id=id, idade=28).all()
 
-
-    kgp = Consumo_piloto.query.filter_by(kg_piloto_id=id).first().kg_piloto
-    kgr = Consumo_rico.query.filter_by(kg_rico_id=id).first().kg_rico
-    kgpb = Consumo_pobre.query.filter_by(kg_pobre_id=id).first().kg_pobre
+    kgp = Consumo_piloto.query.filter_by(ensaio_id=id).first().kg_piloto
+    kgr = Consumo_rico.query.filter_by(ensaio_id=id).first().kg_rico
+    kgpb = Consumo_pobre.query.filter_by(ensaio_id=id).first().kg_pobre
 
     recipiente = d.volume
     gamap = kgp/recipiente
@@ -550,11 +552,17 @@ def resultados(id):
     for i in resistencias_pobre:
         media_resistencia_pobre = media_resistencia_pobre + i.resistencia/numero_de_cp_pobre
 
-    rr = [pb[0].resistencia, p[0].resistencia, ri[0].resistencia]
+    print([media_resistencia_pobre, media_resistencia_piloto, media_resistencia_rico])
+    rr = [media_resistencia_pobre, media_resistencia_piloto, media_resistencia_rico]
     ac = [acpb, acp, acr]
     m = [d.pobre, d.piloto, d.rico]
     cc = [consumopb,consumop,consumor]
     r = Regressao(rr, ac, m, cc)
+
+    print('n: {}; resistencias: {}'.format(numero_de_cp_piloto,resistencias_piloto))
+    print('rr: {}'.format(rr))
+    print(media_resistencia_piloto)
+
     if d.resultados == []:
         resultado = Resultados(k1=r.k1(), k2=r.k2(), k3=r.k3(), k4=r.k4(), k5=r.k5(), k6=r.k6(), ensaio=d)
         db.session.add(resultado)

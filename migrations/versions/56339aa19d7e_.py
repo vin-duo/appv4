@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: c7650ecda8f4
+Revision ID: 56339aa19d7e
 Revises: 
-Create Date: 2021-12-26 18:47:59.110632
+Create Date: 2021-12-28 12:52:49.049922
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c7650ecda8f4'
+revision = '56339aa19d7e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,11 +28,34 @@ def upgrade():
     sa.Column('pesobrita', sa.Float(), nullable=True),
     sa.Column('slump', sa.Float(), nullable=True),
     sa.Column('umidade', sa.Float(), nullable=True),
+    sa.Column('volume', sa.Float(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('consumo_piloto',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('kg_piloto', sa.Float(), nullable=True),
+    sa.Column('ensaio_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['ensaio_id'], ['ensaios.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('consumo_pobre',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('kg_pobre', sa.Float(), nullable=True),
+    sa.Column('ensaio_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['ensaio_id'], ['ensaios.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('consumo_rico',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('kg_rico', sa.Float(), nullable=True),
+    sa.Column('ensaio_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['ensaio_id'], ['ensaios.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('cp_piloto',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('resistencia', sa.Float(), nullable=True),
+    sa.Column('idade', sa.Integer(), nullable=True),
     sa.Column('ensaio_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['ensaio_id'], ['ensaios.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -40,6 +63,7 @@ def upgrade():
     op.create_table('cp_pobre',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('resistencia', sa.Float(), nullable=True),
+    sa.Column('idade', sa.Integer(), nullable=True),
     sa.Column('ensaio_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['ensaio_id'], ['ensaios.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -47,6 +71,7 @@ def upgrade():
     op.create_table('cp_rico',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('resistencia', sa.Float(), nullable=True),
+    sa.Column('idade', sa.Integer(), nullable=True),
     sa.Column('ensaio_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['ensaio_id'], ['ensaios.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -127,6 +152,11 @@ def upgrade():
     sa.Column('cu', sa.Float(), nullable=True),
     sa.Column('au', sa.Float(), nullable=True),
     sa.Column('bu', sa.Float(), nullable=True),
+    sa.Column('cm', sa.Float(), nullable=True),
+    sa.Column('am', sa.Float(), nullable=True),
+    sa.Column('bm', sa.Float(), nullable=True),
+    sa.Column('cacr', sa.Float(), nullable=True),
+    sa.Column('aacr', sa.Float(), nullable=True),
     sa.Column('teste_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['teste_id'], ['ensaios.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -144,5 +174,8 @@ def downgrade():
     op.drop_table('cp_rico')
     op.drop_table('cp_pobre')
     op.drop_table('cp_piloto')
+    op.drop_table('consumo_rico')
+    op.drop_table('consumo_pobre')
+    op.drop_table('consumo_piloto')
     op.drop_table('ensaios')
     # ### end Alembic commands ###

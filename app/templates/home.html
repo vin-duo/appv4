@@ -18,10 +18,10 @@
 <tbody>
 {% for i in ensaios_registrados %}
 <tr>
-    <td>{{ i }}</td>
-    <td><a href="/dosagem/{{ i.id }}" class='btn btn-secondary btn-sm'>Dosagem</a></td>
-    <td><a href="/editar_ensaio/{{ i.id }}" class='btn btn-secondary btn-sm'>Editar</a></td>
-    <td><a href="/home/{{ i.id }}" class="btn btn-danger btn-sm">DELETAR</a></td>
+    <td>{{ i.nome }}</td>
+    <td class="text-end"><a href="/dosagem/{{ i.id }}" class='btn btn-secondary btn-sm'>Dosagem</a>
+    	<a href="/editar_ensaio/{{ i.id }}" class='btn btn-secondary btn-sm'>Editar</a>
+    	<a href="/home/{{ i.id }}" class="btn btn-danger btn-sm">DELETAR</a></td>
 </tr>
 {% endfor %}
 </tbody>

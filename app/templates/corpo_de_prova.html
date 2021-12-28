@@ -6,29 +6,27 @@
 
 <h1>Dosagem</h1>
 
-
-
 <div class="container">
     <div class = "row">
         <div class="col-3">
             <br>
-
-            campo add corpo de prova
+            Adicionar resistência dos corpos de prova
+            <br>
             <form method="POST">
-                <input size="3" class="form-control-sm" value="" name="resistencia_piloto">
-                <input type="submit" value="Add">
                 <br>
-                <input size="3" class="form-control-sm" value="" name="resistencia_rico">
-                <input type="submit" value="Add2">
-                <br>
-                <input size="3" class="form-control-sm" value="" name="resistencia_pobre">
-                <input type="submit" value="Add2">
-
                 <select class="form-select" aria-label="Default select example" name="selectfield">
-                  <option value="7">7</option>
-                  <option value="20">20</option>
-                  <option value="28">28</option>
+                  <option value="28">28 dias</option>
+                  <option value="20">20 dias</option>
+                  <option value="7">7 dias</option>
                 </select>
+                <br>
+                <input size="3" class="form-control" value="" name="resistencia_piloto", placeholder='Corpo de prova Piloto (MPa)'>
+                <br>
+                <input size="3" class="form-control" value="" name="resistencia_rico", placeholder='Corpo de prova Rico (MPa)'>
+                <br>
+                <input size="3" class="form-control" value="" name="resistencia_pobre", placeholder='Corpo de prova Pobre (MPa)'>
+                <br>
+                <input type="submit" class="btn btn-secondary" value="Adicionar Corpo de prova">
 
             </form>
         </div>

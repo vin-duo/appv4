@@ -14,9 +14,15 @@
         <br>
 
         <form method="POST">
+            <div class="row row-cols-2">
             {{ form.hidden_tag() }}
-            {{ form.alfa.label }}<br>
-            {{ form.alfa(size=3) }}{{ form.submit(class="btn btn-secondary") }}
+            <div class="col">
+            {{ form.alfa(class="form-control", placeholder='Alfa') }}
+            </div>
+            <div class="col">
+            {{ form.submit(class="btn btn-secondary") }}
+            </div>
+            </div>
         </form>
 
         </div>
@@ -85,8 +91,8 @@
                 <td> + 0 </td>
             {% endif %}
             <td><input type="hidden" value="{{ i.id }}" name="i_id">
-            <input type="text" size="3" class="form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
-            <td><input type="submit" value="Update"></td>
+            <input type="text" size="1" class="form-control form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
+            <td><input type="submit" class="btn btn-secondary btn-sm" value="UPDATE"></td>
             <td><a href="/dosagem/delete/{{ i.id }}" class="btn btn-danger btn-sm">DELETAR</a></td>
             </form>
         </tr>

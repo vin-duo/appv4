@@ -12,9 +12,15 @@
             <br>
 
             <form method="POST">
+            <div class="row row-cols-2">
                 {{ form.hidden_tag() }}
-                {{ form.alfa_auxiliar.label }}<br>
-                {{ form.alfa_auxiliar(size=3) }}{{ form.submit(class="btn btn-secondary") }}
+            <div class="col">
+                {{ form.alfa_auxiliar(class="form-control", placeholder='Alfa ideal') }}
+            </div>
+            <div class="col">
+                {{ form.submit(class="btn btn-secondary") }}
+            </div>
+            </div>
             </form>
 
         </div>
@@ -79,8 +85,8 @@
             <td>{{ i.b_massa }}</td>
             
             <td><input type="hidden" value="{{ i.id }}" name="i_id">
-            <input type="text" size="3" class="form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
-            <td><input type="submit" value="Update"></td>
+            <input type="text" size="1" class="form-control form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
+            <td><input type="submit" class="btn btn-secondary btn-sm" value="UPDATE"></td>
             <td><a href="/dosagem_auxiliar/delete/{{ i.id }}" class="btn btn-danger btn-sm">DELETAR</a></td>
             </form>
         </tr>
@@ -123,8 +129,8 @@
             <td>{{ i.b_massa }}</td>
             
             <td><input type="hidden" value="{{ i.id }}" name="i_id">
-            <input type="text" size="3" class="form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
-            <td><input type="submit" value="Update"></td>
+            <input type="text" size="1" class="form-control form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
+            <td><input type="submit" class="btn btn-secondary btn-sm" value="UPDATE"></td>
             <td><a href="/dosagem_auxiliar/delete/{{ i.id }}" class="btn btn-danger btn-sm">DELETAR</a></td>
             </form>
         </tr>

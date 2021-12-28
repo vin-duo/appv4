@@ -6,31 +6,32 @@
 <h1>Editar Ensaio</h1>
 
 <div class="container">
+    <div class='col-3'>
     <form method="POST">
         {{ form.hidden_tag() }}
     
         {{ form.nome.label }}<br>
-        {{ form.nome(size=15, value=editar.nome) }}<br>
-
-        {{ form.piloto.label }}<br>
-        {{ form.piloto(size=3, value=editar.piloto) }}<br>
-
-        {{ form.rico.label }}<br>
-        {{ form.rico(size=3, value=editar.rico) }}<br>
-
-        {{ form.pobre.label }}<br>
-        {{ form.pobre(size=3, value=editar.pobre) }}<br>
+        {{ form.nome(class="form-control form-control-sm", value=editar.nome) }}<br>
 
         {{ form.pesobrita.label }}<br>
-        {{ form.pesobrita(size=3, value=editar.pesobrita) }}<br>
+        {{ form.pesobrita(class="form-control form-control-sm", value=editar.pesobrita) }}<br>
 
         {{ form.slump.label }}<br>
-        {{ form.slump(size=3, value=editar.slump) }}<br>
+        {{ form.slump(class="form-control form-control-sm", value=editar.slump) }}<br>
+
+        {{ form.piloto.label }}<br>
+        {{ form.piloto(class="form-control form-control-sm", value=editar.piloto) }}<br>
+
+        {{ form.rico.label }}<br>
+        {{ form.rico(class="form-control form-control-sm", value=editar.rico) }}<br>
+
+        {{ form.pobre.label }}<br>
+        {{ form.pobre(class="form-control form-control-sm", value=editar.pobre) }}<br>
 
         {{ form.volume_recipiente.label }}<br>
-        {{ form.volume_recipiente(size=3, value=editar.volume_recipiente) }}<br>
+        {{ form.volume_recipiente(class="form-control form-control-sm", value=editar.volume) }}<br>
 
-        {{ form.submit }}
+        {{ form.submit(class="btn btn-secondary") }}
     </form>
 </div>
 

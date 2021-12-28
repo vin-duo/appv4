@@ -12,17 +12,17 @@
     <div class = "row">
         <div class="col-3">
             <br>
-
-            campo add consumo de cimento
+            Adicionar pesagem das amostras de concreto
+            <br>
             <form method="POST">
-                <input size="3" class="form-control-sm" value="" name="massa_piloto">
-                <input type="submit" value="(kg) Piloto">
-                <br>
-                <input size="3" class="form-control-sm" value="" name="massa_rico">
-                <input type="submit" value="(kg) Rico">
-                <br>
-                <input size="3" class="form-control-sm" value="" name="massa_pobre">
-                <input type="submit" value="(kg) Pobre">
+              <br>
+              <input size="3" class="form-control" value="" name="massa_piloto", placeholder="Massa amostra piloto (kg)">
+              <br>
+              <input size="3" class="form-control" value="" name="massa_rico", placeholder="Massa amostra rico (kg)">
+              <br>
+              <input size="3" class="form-control" value="" name="massa_pobre", placeholder="Massa amostra pobre (kg)">
+              <br>
+              <input type="submit" class="btn btn-secondary" value="Adicionar pesagem">
             </form>
         </div>
 
@@ -51,7 +51,18 @@
             </ul>
             <br>
 
-            <h4>Corpos de prova adicionados</h4>
+            <h4>Consumo de cimento</h4>
+            <h3> Volume do recipiente utilizado: {{ recipiente }} m³</h3>
+            {% if consumo_piloto_salvo %}
+            <h3> Massa piloto: {{ consumo_piloto_salvo.kg_piloto }} kg</h3>
+            {% endif %}
+            {% if consumo_rico_salvo %}
+            <h3> Massa rico: {{ consumo_rico_salvo.kg_rico }} kg</h3>
+            {% endif %}
+            {% if consumo_pobre_salvo %}
+            <h3> Massa pobre: {{ consumo_pobre_salvo.kg_pobre }} kg</h3>
+            {% endif %}
+
 			</div>
 		</div>
 	</div>

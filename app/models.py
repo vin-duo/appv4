@@ -3,17 +3,17 @@ from app import db
 class Consumo_piloto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kg_piloto = db.Column(db.Float)
-    kg_piloto_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
+    ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
 class Consumo_rico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kg_rico = db.Column(db.Float)
-    kg_rico_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
+    ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
 class Consumo_pobre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kg_pobre = db.Column(db.Float)
-    kg_pobre_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
+    ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 
 class Ensaios(db.Model):
     id = db.Column(db.Integer, primary_key=True)
