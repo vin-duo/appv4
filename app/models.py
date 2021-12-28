@@ -1,6 +1,5 @@
 from app import db
 
-
 class Consumo_piloto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kg_piloto = db.Column(db.Float)

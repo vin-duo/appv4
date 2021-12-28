@@ -113,7 +113,6 @@ def apagar_ensaio(id):
     apagar_pobre = Dosagem_pobre.query.get_or_404(id)
     apagar_piloto = Dosagem_piloto.query.get_or_404(id)
     '''
-
     apagar_ensaio = Ensaios.query.get_or_404(id)
 
     try:
@@ -356,11 +355,6 @@ def dosagem_auxiliar(id):
     return render_template("auxiliar.html", form=form, ensaio_salvo=ensaio_salvo, id=id, m_rico=m_rico, m_pobre=m_pobre, slump=slump)
 
 
-
-
-
-#acabou dosagem auxiliar
-
 @app.route('/dosagem/delete/<int:id>')#esse id é da linha na tabela Dosagem_piloto
 def delete(id):
     #linha da dosagem a ser deletara
@@ -372,7 +366,6 @@ def delete(id):
     db.session.commit()
 
     return redirect('/dosagem/{}'.format(dosagem_deletada.ensaio.id))
-
 
 
 @app.route('/dosagem_auxiliar/delete/<int:id>')#esse id é da linha na tabela Dosagem_piloto
@@ -423,10 +416,6 @@ def corpo_de_prova(id):
     return render_template('corpo_de_prova.html', id=id, cps_piloto=cps_piloto, cps_rico=cps_rico, cps_pobre=cps_pobre, ensaio_salvo=ensaio_salvo)
 
 
-
-
-#@@@@@@@@@@@@@@@@@@@@@@
-
 @app.route('/consumo_cimento/<int:id>', methods=['POST', 'GET'])
 def consumo_cimento(id):
 
@@ -469,17 +458,6 @@ def consumo_cimento(id):
                 db.session.commit()
         return redirect('/consumo_cimento/{}'.format(id))
     return render_template('consumo.html', id=id, massa_piloto=massa_piloto, massa_rico=massa_rico, massa_pobre=massa_pobre, ensaio_salvo=ensaio_salvo)
-
-#@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-
-
-
-
-
-
 
 
 @app.route('/corpo_de_prova/deletar_piloto/<int:id>')
@@ -554,8 +532,7 @@ def resultados(id):
     kgp = Consumo_piloto.query.filter_by(kg_piloto_id=id).first().kg_piloto
     kgr = Consumo_rico.query.filter_by(kg_rico_id=id).first().kg_rico
     kgpb = Consumo_pobre.query.filter_by(kg_pobre_id=id).first().kg_pobre
-    print('kgp')
-    print(kgp)
+
     recipiente = d.volume
     gamap = kgp/recipiente
     gamar = kgr/recipiente
@@ -577,8 +554,6 @@ def resultados(id):
     ac = [acpb, acp, acr]
     m = [d.pobre, d.piloto, d.rico]
     cc = [consumopb,consumop,consumor]
-
-#PRECISO COLOCAR INPUT DE DADOS PARA OS VALORES DE "C"!!!!
     r = Regressao(rr, ac, m, cc)
     if d.resultados == []:
         resultado = Resultados(k1=r.k1(), k2=r.k2(), k3=r.k3(), k4=r.k4(), k5=r.k5(), k6=r.k6(), ensaio=d)
@@ -593,7 +568,7 @@ def resultados(id):
         d.resultados[0].k6 = r.k6()
         db.session.commit()
 
-    return render_template('resultados.html', id=id, r=r)
+    return render_template('resultados.html', id=id, r=r, p=p, ri=ri, pb=pb)
 
 
 @app.route('/calculadora/<int:id>', methods=['POST', 'GET'])
@@ -622,4 +597,4 @@ def calculadora(id):
         areia_unitaria = traco.massas_unitarias()[1]
         brita_unitaria = traco.massas_unitarias()[2]
 
-    return render_template('calculadora.html', id=id, form=form, abrams=abrams, lyse=lyse, molinari=molinari, alfa_ideal=alfa_ideal, areia_unitaria=areia_unitaria, brita_unitaria=brita_unitaria)
+    return render_template('calculadora.html', id=id, form=form, abrams=abrams, lyse=lyse, molinari=molinari, alfa_ideal=alfa_ideal, areia_unitaria=areia_unitaria, brita_unitaria=brita_unitaria, res=res)
