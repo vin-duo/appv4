@@ -146,10 +146,13 @@ def dosagem(id):
     slump = ensaio_salvo.slump
 #    umidade = ensaio_salvo.umidade
 
+    print('Dosagem_piloto.query.order_by(Dosagem_piloto.alfa).all()')
+    print(Dosagem_piloto.query.order_by(Dosagem_piloto.alfa).all()) 
+    alfa_ordenado = Dosagem_piloto.query.order_by(Dosagem_piloto.alfa).all()
     if dosagens_do_ensaio_salvo != []:
         contador = 0
         indice = 0
-        for i in dosagens_do_ensaio_salvo:
+        for i in alfa_ordenado:
             alfa = i.alfa
 
             if contador == 0:
@@ -190,7 +193,7 @@ def dosagem(id):
         db.session.add(add_no_db)
         db.session.commit()
         return redirect ('/dosagem/{}'.format(id))
-    return render_template("dosagem.html", form=form, id=id, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo, m=m, slump=slump, pesobrita=pesobrita)
+    return render_template("dosagem.html", form=form, id=id, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo, m=m, slump=slump, pesobrita=pesobrita, alfa_ordenado=alfa_ordenado)
 
 
 @app.route("/agua", methods=["POST"])
