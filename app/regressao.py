@@ -81,8 +81,8 @@ class Calculadora():
 
 
 '''
-vr = [38,28,20]
-vac = [0.41,0.55,0.7]
+vr = [33.4,27.1,24.6]
+vac = [0.5,0.6,0.66]
 vm = [4,5,6]
 vc = [472,371,309]
 
@@ -108,74 +108,5 @@ areia = alfa * (1+m) - 1
 pedra = m - areia
 agua = d.abrams()
 print('traço unitario: 1 : {} : {} : {}'.format(areia, pedra, agua))
-
 '''
-
-
-
-'''
-
-vr = [57.5,43.7,31.4]
-vac = [0.36,0.42,0.49]
-vm = [3,4,5]
-vc = [479,371,295]
-
-r = Regressao(vr,vac,vm,vc)
-k = [r.k1(),r.k2(),r.k3(),r.k4(),r.k5(),r.k6()]
-d = Calculadora(k,50)
-
-print('\n')
-print(r.k1())
-print(r.k2())
-print(r.k3())
-print(r.k4())
-print(r.k5())
-print(r.k6())
-print('\n')
-print(d.abrams())
-print(d.lyse())
-print(d.molinari())
-print('------')
-
-'''
-
-'''
-
-print(r.k1())
-print(r.k2())
-print(r.k3())
-print(r.k4())
-print(r.k5())
-print(r.k6())
-print('\n')
-print(d.abrams())
-print(d.lyse())
-print(d.molinari())
-print('------')
-
-
-vr = [57.5,43.7,31.4]
-vac = [0.36,0.42,0.49]
-vm = [3,4,5]
-vc = [479,371,295]
-
-r = Regressao(vr,vac,vm,vc)
-k = [r.k1,r.k2,r.k3,r.k4,r.k5,r.k6]
-d = Calculadora(k,50)
-
-print('\n')
-print(r.k1())
-print(r.k2())
-print(r.k3())
-print(r.k4())
-print(r.k5())
-print(r.k6())
-print('\n')
-print(d.abrams())
-print(d.lyse())
-print(d.molinari())
-print('------')
-
-'''
-
 

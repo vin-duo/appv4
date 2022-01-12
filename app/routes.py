@@ -8,10 +8,8 @@ from app.traco_dosagem import Ensaio
 @app.route('/')
 @app.route('/home')
 def home():
-    ensaios_registrados = Ensaios.query.all()
+    ensaios_registrados = Ensaios.query.order_by(Ensaios.id).all()
     return render_template('home.html', ensaios_registrados=ensaios_registrados)
-
-
 
 
 #TESTE
@@ -101,21 +99,24 @@ def criar():
 
 @app.route('/home/<int:id>')
 def apagar_ensaio(id):
-    '''
-    apagar_resultado = Resultados.query.get_or_404(id)
-    apagar_consumo_piloto = Consumo_piloto.query.get_or_404(id)
-    apagar_consumo_rico = Consumo_rico.query.get_or_404(id)
-    apagar_consumo_pobre = Consumo_pobre.query.get_or_404(id)
-    apagar_cp_rico = Cp_rico.query.get_or_404(id)
-    apagar_cp_rico = Cp_rico.query.get_or_404(id)
-    apagar_cp_rico = Cp_rico.query.get_or_404(id)
-    apagar_rico = Dosagem_rico.query.get_or_404(id)
-    apagar_pobre = Dosagem_pobre.query.get_or_404(id)
-    apagar_piloto = Dosagem_piloto.query.get_or_404(id)
-    '''
+
     apagar_ensaio = Ensaios.query.get_or_404(id)
 
+    def objetos_para_deletar(obj):
+        for i in obj:
+            db.session.delete(i)
+
     try:
+        objetos_para_deletar(Resultados.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Consumo_piloto.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Consumo_rico.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Consumo_pobre.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Cp_piloto.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Cp_rico.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Cp_pobre.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Dosagem_rico.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Dosagem_pobre.query.filter_by(ensaio_id=id).all())
+        objetos_para_deletar(Dosagem_piloto.query.filter_by(ensaio_id=id).all())
         db.session.delete(apagar_ensaio)
         db.session.commit()
         return redirect('/home')
@@ -161,10 +162,9 @@ def dosagem(id):
     alfa_ordenado = Dosagem_piloto.query.filter_by(ensaio_id=id).order_by(Dosagem_piloto.alfa).all()
     if dosagens_do_ensaio_salvo != []:
         contador = 0
-        indice = 0
+        indice = 1
         for i in alfa_ordenado:
             alfa = i.alfa
-
             if contador == 0:
                 alfaantigo = 0
             else:
@@ -394,10 +394,10 @@ def corpo_de_prova(id):
     cps_piloto = Cp_piloto.query.all()
     cps_rico = Cp_rico.query.all()
     cps_pobre = Cp_pobre.query.all()
-
     r_piloto = request.form.get("resistencia_piloto")
     r_rico = request.form.get("resistencia_rico")
     r_pobre = request.form.get("resistencia_pobre")
+
     if request.method == 'POST':
         age = request.form.get("selectfield")
         if r_piloto != "":
@@ -552,16 +552,11 @@ def resultados(id):
     for i in resistencias_pobre:
         media_resistencia_pobre = media_resistencia_pobre + i.resistencia/numero_de_cp_pobre
 
-    print([media_resistencia_pobre, media_resistencia_piloto, media_resistencia_rico])
     rr = [media_resistencia_pobre, media_resistencia_piloto, media_resistencia_rico]
     ac = [acpb, acp, acr]
     m = [d.pobre, d.piloto, d.rico]
     cc = [consumopb,consumop,consumor]
     r = Regressao(rr, ac, m, cc)
-
-    print('n: {}; resistencias: {}'.format(numero_de_cp_piloto,resistencias_piloto))
-    print('rr: {}'.format(rr))
-    print(media_resistencia_piloto)
 
     if d.resultados == []:
         resultado = Resultados(k1=r.k1(), k2=r.k2(), k3=r.k3(), k4=r.k4(), k5=r.k5(), k6=r.k6(), ensaio=d)

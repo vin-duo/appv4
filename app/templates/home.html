@@ -3,11 +3,11 @@
 {% block content %}
 
 
-<h1>Home Page</h1>
+<h1>Ensaios</h1>
 
 <div class="container">
 
-    <a class="btn btn-success" href="/criar", >Criar</a>
+    <a class="btn btn-success" href="/criar", >Novo ensaio</a>
 
 </div>
 
@@ -21,7 +21,7 @@
     <td>{{ i.nome }}</td>
     <td class="text-end"><a href="/dosagem/{{ i.id }}" class='btn btn-secondary btn-sm'>Dosagem</a>
     	<a href="/editar_ensaio/{{ i.id }}" class='btn btn-secondary btn-sm'>Editar</a>
-    	<a href="/home/{{ i.id }}" class="btn btn-danger btn-sm">DELETAR</a></td>
+    	<a href="/home/{{ i.id }}" class="btn btn-danger btn-sm">Deletar</a></td>
 </tr>
 {% endfor %}
 </tbody>

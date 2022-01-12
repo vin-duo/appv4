@@ -2,8 +2,7 @@ from flask_wtf import FlaskForm
 
 from wtforms import StringField, SubmitField, FloatField, SelectField
 from wtforms_sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired
-
+from wtforms.validators import InputRequired
 
 
 class Formulario_teste(FlaskForm):
@@ -11,19 +10,16 @@ class Formulario_teste(FlaskForm):
     selection = SelectField('Selecione: ', choices=[('7', '7'),('20', '20'),('28','28')])
     enviar = SubmitField('enviar para teste')
 
-
-    # FORMS
-
 class Criar_ensaio(FlaskForm):
-    nome = StringField('Nome', validators=[DataRequired()])
-    piloto = FloatField('Traço Piloto')
-    rico = FloatField('Traço Rico')
-    pobre = FloatField('Traço Pobre')
+    nome = StringField('Nome', validators=[InputRequired(message='Campo necessario')])
+    piloto = FloatField('Traço Piloto', validators=[InputRequired(message='Campo necessario')])
+    rico = FloatField('Traço Rico', validators=[InputRequired(message='Campo necessario')])
+    pobre = FloatField('Traço Pobre', validators=[InputRequired(message='Campo necessario')])
 #    cp = FloatField('cp')
-    pesobrita = FloatField('Brita (kg)')
-    slump = FloatField('slump (mm)')
+    pesobrita = FloatField('Brita (kg)', validators=[InputRequired(message='Campo necessario')])
+    slump = FloatField('slump (mm)', validators=[InputRequired(message='Campo necessario')])
 #    umidade = FloatField('umidade (%)')
-    volume_recipiente = FloatField('Volume do recipiente (m3)')
+    volume_recipiente = FloatField('Volume do recipiente (m3)', validators=[InputRequired(message='Campo necessario')])
     submit = SubmitField('Registrar')
 
 class Alfa(FlaskForm):
@@ -38,10 +34,3 @@ class Calcular(FlaskForm):
     resistencia = FloatField('Resistencia')
     calcular = SubmitField('Calcular')
 
-
-
-
-'''
-class Alfa_ideal(FlaskForm):
-    alfa_ideal = QuerySelectField(allow_blank=True, get_label='id')
-'''
