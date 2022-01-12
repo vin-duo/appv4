@@ -570,8 +570,9 @@ def resultados(id):
         d.resultados[0].k5 = r.k5()
         d.resultados[0].k6 = r.k6()
         db.session.commit()
-
-    return render_template('resultados.html', id=id, r=r, p=p, ri=ri, pb=pb)
+    print('print do dosagem piloto')
+    print(d.dosagem_piloto)
+    return render_template('resultados.html', id=id, r=r, p=p, ri=ri, pb=pb, d=d, acp=round(acp,2), acpb=round(acpb,2), acr=round(acr,2))
 
 
 @app.route('/calculadora/<int:id>', methods=['POST', 'GET'])
