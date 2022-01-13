@@ -49,18 +49,23 @@
 			</div>
 	    </form>
     </div>
-
-	<div class="row">	    	<br>
+	<br>
+	<div class="row">
 		{% if abrams != 0 %}
-	        <h4>Concreto {{ res }} MPa</h4>
-	        <h4>Traço unitário (1 : a : b : a/c)</h4>
-	        <h4>  1 : {{ areia_unitaria }} : {{ brita_unitaria }} : {{ abrams }}</h4>
-	        <br>
-	        <h4>Teor de materiais secos</h4>
-	        <h4>  m = {{ lyse }} </h4>
-	        <br>
-	        <h4>Consumo de cimento</h4>
-	        <h4>  C = {{ molinari }}</h4>
+
+			{% for i in abrams %}
+				<div>
+			        <h4>Concreto {{ res }} MPa</h4>
+					<h4>Idade: {{ idades[abrams.index(i)] }} dias</h4>
+			        <h4>Traço unitário (1 : a : b : a/c)</h4>
+			        <h4>  1 : {{ areia_unitaria[abrams.index(i)] }} : {{ brita_unitaria[abrams.index(i)] }} : {{ abrams[abrams.index(i)] }}</h4>
+			        <h4>Teor de materiais secos</h4>
+			        <h4>  m = {{ lyse[abrams.index(i)] }} </h4>
+			        <h4>Consumo de cimento</h4>
+			        <h4>  C = {{ molinari[abrams.index(i)] }}</h4>
+			        <br>
+			    </div>
+	        {% endfor %}
 		{% endif %}
 	</div>
 </div>

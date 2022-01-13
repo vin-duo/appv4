@@ -697,25 +697,52 @@ def calculadora(id):
     form = Calcular()
     res = request.form.get("resistencia")
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
-    k = ensaio_salvo.resultados
-    lista_k = [k[0].k1, k[0].k2, k[0].k3, k[0].k4, k[0].k5, k[0].k6]
+
+    ki7 = Resultados.query.filter_by(ensaio_id=id, idade=7).first()
+    ki14 = Resultados.query.filter_by(ensaio_id=id, idade=14).first()
+    ki28 = Resultados.query.filter_by(ensaio_id=id, idade=28).first()
+
+    lista_k = []
+    idades = []
+    abrams = []
+    lyse = []
+    molinari = []
+    alfa_ideal = []
+    areia_unitaria = []
+    brita_unitaria = []
 
 
-    abrams = 0
-    lyse = 0
-    molinari = 0
-    alfa_ideal = 0
-    areia_unitaria = 0
-    brita_unitaria = 0
+    if ki28:
+        lista_ki28 = [ki28.k1, ki28.k2, ki28.k3, ki28.k4, ki28.k5, ki28.k6]
+        lista_k.append(lista_ki28)
+        idades.append(ki28.idade)
+    if ki14:
+        lista_ki14 = [ki14.k1, ki14.k2, ki14.k3, ki14.k4, ki14.k5, ki14.k6]
+        lista_k.append(lista_ki14)
+        idades.append(ki14.idade)
+    if ki7:
+        lista_ki7 = [ki7.k1, ki7.k2, ki7.k3, ki7.k4, ki7.k5, ki7.k6]
+        lista_k.append(lista_ki7)
+        idades.append(ki7.idade)
+    '''
+    lista_k = [
+    [ki7.k1, ki7.k2, ki7.k3, ki7.k4, ki7.k5, ki7.k6],
+    [ki14.k1, ki14.k2, ki14.k3, ki14.k4, ki14.k5, ki14.k6],
+    [ki28.k1, ki28.k2, ki28.k3, ki28.k4, ki28.k5, ki28.k6]
+    ]
+    '''
 
     if form.validate_on_submit():
-        calculo = Calculadora(lista_k, float(res))
-        abrams = calculo.abrams()
-        lyse = calculo.lyse()
-        molinari = calculo.molinari()
-        alfa_ideal = ensaio_salvo.dosagem_rico[-1].alfa
-        traco = Ensaio(alfa=alfa_ideal, m=lyse, agua=abrams)
-        areia_unitaria = traco.massas_unitarias()[1]
-        brita_unitaria = traco.massas_unitarias()[2]
+        contador = 0
+        for i in lista_k:
+            calculo = Calculadora(i, float(res))
+            abrams.append(calculo.abrams())
+            lyse.append(calculo.lyse())
+            molinari.append(calculo.molinari())
+            alfa_ideal = ensaio_salvo.dosagem_rico[-1].alfa
+            traco = Ensaio(alfa=alfa_ideal, m=lyse[contador], agua=abrams[contador])
+            areia_unitaria.append(traco.massas_unitarias()[1])
+            brita_unitaria.append(traco.massas_unitarias()[2])
+            contador = contador + 1
 
-    return render_template('calculadora.html', id=id, form=form, abrams=abrams, lyse=lyse, molinari=molinari, alfa_ideal=alfa_ideal, areia_unitaria=areia_unitaria, brita_unitaria=brita_unitaria, res=res)
+    return render_template('calculadora.html', id=id, form=form, abrams=abrams, lyse=lyse, molinari=molinari, alfa_ideal=alfa_ideal, areia_unitaria=areia_unitaria, brita_unitaria=brita_unitaria, res=res, idades=idades)
