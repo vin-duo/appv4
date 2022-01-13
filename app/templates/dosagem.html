@@ -7,26 +7,7 @@
 
 <div class="container">
     <div class = "row">
-        <div class="col-3">
-        
-        <br>
-
-        <form method="POST">
-            <div class="row row-cols-2">
-            {{ form.hidden_tag() }}
-            <div class="col">
-            {{ form.alfa(class="form-control", placeholder='Alfa') }}
-            </div>
-            <div class="col">
-            {{ form.submit(class="btn btn-secondary") }}
-            </div>
-            </div>
-        </form>
-
-        </div>
-
-        <div class="col-9">
-            <div class="container">
+        <div class="container">
 
             <ul class="nav nav-tabs">
               <li class="nav-item">
@@ -48,32 +29,52 @@
                 <a class="nav-link" href="/calculadora/{{ id }}">Calculadora</a>
               </li>
             </ul>
-        <br>
-        <h4>Traço PILOTO<br>m: {{ m }}<br>Slump: {{ slump }} mm</h4>
+            <br>
+        </div>
+    </div>
 
 
-        <table class="table table-dark table-hover table-bordered">
-        <thead>
-            <tr>
-                <th></th>
-                <th></th>
-                <th colspan="4">Acréscimos para determinação do teor ideal de argamassa</th>
-                <th></th>
-                <th></th>
-            <tr>
-                <th>#</th>
-                <th>Alfa</th>
-                <th>Cimento</th>
-                <th>Areia</th>
-                <th>Brita</th>
-                <th>Água</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for i in alfa_ordenado %}
-        <form method="POST" action="/agua">
+    <!-- formulario para adicionar alfa -->
+    <div class=row>
+        <form method="POST">
+            <div class=col-2>
+                {{ form.hidden_tag() }}
+                {{ form.alfa(class="form-control", placeholder='Novo alfa') }}
+            </div>
+            <div class=col-2>
+                {{ form.submit(class="btn btn-secondary") }}
+            </div>
+        </form>                
+    </div>
+    <br>
+    <!-- fim -->
+
+    <h4>Traço PILOTO<br>m: {{ m }}<br>Slump: {{ slump }} mm</h4>
+
+
+    <table class="table table-dark table-hover table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th colspan="4">Acréscimos para determinação do teor ideal de argamassa</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>#</th>
+            <th>Alfa</th>
+            <th>Cimento</th>
+            <th>Areia</th>
+            <th>Brita</th>
+            <th>Água</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i in alfa_ordenado %}
+    <form method="POST" action="/agua">
         <tr>
             <td>{{ i.indice }}</td>
             <td>{{ i.alfa }}</td>
@@ -90,19 +91,13 @@
             <input type="text" size="1" class="form-control form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
             <td><input type="submit" class="btn btn-secondary btn-sm" value="Update"></td>
             <td><a type="button" class='btn btn-danger btn-sm' data-bs-toggle="modal" data-bs-target="#exampleModal{{ i.id }}">Deletar</a></td>
-            </form>
         </tr>
-        {% endfor %}
-        </tbody>
+    </form>
 
-
-        </table>
-        </div>
-    </div>
+    {% endfor %}
+    </tbody>
+    </table>
 </div>
-
-
-
 
 {%for i in alfa_ordenado %}
 <!-- Modal -->

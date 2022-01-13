@@ -8,61 +8,64 @@
 
 <div class="container">
     <div class = "row">
-        <div class="col-3">
-            <br>
-			Digite a resistência desejada para o concreto
 
+	    <div class="container">
+
+	        <ul class="nav nav-tabs">
+	          <li class="nav-item">
+	            <a class="nav-link" aria-current="page" href="/dosagem/{{ id }}">Piloto</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/auxiliar/{{ id }}">Auxiliar</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/consumo_cimento/{{ id }}">Consumo</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/corpo_de_prova/{{ id }}">Corpo de Prova</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/resultados/{{ id }}">Resultados</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link active" href="/calculadora/{{ id }}">Calculadora</a>
+	          </li>
+	        </ul>
+	    </div>
+	</div>
+
+	<div class="row">
+        <div class="col-3">
+			Digite a resistência desejada para o concreto
 		    <form method="POST">
-			<br>
+				<br>
 				<div class="row row-cols-2">
-				{{ form.hidden_tag() }}
-				<div class="col">
-		        {{ form.resistencia(class="form-control", placeholder="(MPa)") }}
-				</div>
-				<div class="col">
-		        {{ form.calcular(class="btn btn-secondary") }}
-				</div>
+					{{ form.hidden_tag() }}
+					<div class="col">
+		    	    {{ form.resistencia(class="form-control", placeholder="(MPa)") }}
+					</div>
+					<div class="col">
+			        {{ form.calcular(class="btn btn-secondary") }}
+					</div>
 				</div>
 		    </form>
         </div>
 
-	    <div class="col-9">
-	        <div class="container">
-
-		        <ul class="nav nav-tabs">
-		          <li class="nav-item">
-		            <a class="nav-link" aria-current="page" href="/dosagem/{{ id }}">Piloto</a>
-		          </li>
-		          <li class="nav-item">
-		            <a class="nav-link" href="/auxiliar/{{ id }}">Auxiliar</a>
-		          </li>
-	              <li class="nav-item">
-	                <a class="nav-link" href="/consumo_cimento/{{ id }}">Consumo</a>
-	              </li>
-		          <li class="nav-item">
-		            <a class="nav-link" href="/corpo_de_prova/{{ id }}">Corpo de Prova</a>
-		          </li>
-		          <li class="nav-item">
-		            <a class="nav-link" href="/resultados/{{ id }}">Resultados</a>
-		          </li>
-		          <li class="nav-item">
-		            <a class="nav-link active" href="/calculadora/{{ id }}">Calculadora</a>
-		          </li>
-		        </ul>
-	        	<br>
-				{% if abrams != 0 %}
-			        <h4>Concreto {{ res }} MPa</h4>
-			        <h4>Traço unitário (1 : a : b : a/c)</h4>
-			        <h4>  1 : {{ areia_unitaria }} : {{ brita_unitaria }} : {{ abrams }}</h4>
-			        <br>
-			        <h4>Teor de materiais secos</h4>
-			        <h4>  m = {{ lyse }} </h4>
-			        <br>
-			        <h4>Consumo de cimento</h4>
-			        <h4>  C = {{ molinari }}</h4>
-				{% endif %}
-			</div>
+        <div class="col-9">
+	    	<br>
+			{% if abrams != 0 %}
+		        <h4>Concreto {{ res }} MPa</h4>
+		        <h4>Traço unitário (1 : a : b : a/c)</h4>
+		        <h4>  1 : {{ areia_unitaria }} : {{ brita_unitaria }} : {{ abrams }}</h4>
+		        <br>
+		        <h4>Teor de materiais secos</h4>
+		        <h4>  m = {{ lyse }} </h4>
+		        <br>
+		        <h4>Consumo de cimento</h4>
+		        <h4>  C = {{ molinari }}</h4>
+			{% endif %}
 		</div>
 	</div>
 </div>
+
 {% endblock %}
