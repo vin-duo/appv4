@@ -592,7 +592,7 @@ def calculadora(id):
     brita_unitaria = 0
 
     if form.validate_on_submit():
-        calculo = Calculadora(lista_k, int(res))
+        calculo = Calculadora(lista_k, float(res))
         abrams = calculo.abrams()
         lyse = calculo.lyse()
         molinari = calculo.molinari()
