@@ -41,7 +41,7 @@
 			<div class="row row-cols-2">
 				{{ form.hidden_tag() }}
 				<div class="col">
-	    	    {{ form.resistencia(class="form-control", placeholder="(MPa)", type="number" step="any") }}
+	    	    {{ form.resistencia(class="form-control", placeholder="(MPa)") }}
 				</div>
 				<div class="col">
 		        {{ form.calcular(class="btn btn-secondary") }}
@@ -49,8 +49,8 @@
 			</div>
 	    </form>
     </div>
-    <br>
-	<div class="row">
+
+	<div class="row">	    	<br>
 		{% if abrams != 0 %}
 	        <h4>Concreto {{ res }} MPa</h4>
 	        <h4>Traço unitário (1 : a : b : a/c)</h4>
