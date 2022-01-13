@@ -35,36 +35,33 @@
 	</div>
 
 	<div class="row">
-        <div class="col-3">
-			Digite a resistência desejada para o concreto
-		    <form method="POST">
-				<br>
-				<div class="row row-cols-2">
-					{{ form.hidden_tag() }}
-					<div class="col">
-		    	    {{ form.resistencia(class="form-control", placeholder="(MPa)") }}
-					</div>
-					<div class="col">
-			        {{ form.calcular(class="btn btn-secondary") }}
-					</div>
+		Digite a resistência desejada para o concreto
+	    <form method="POST">
+			<br>
+			<div class="row row-cols-2">
+				{{ form.hidden_tag() }}
+				<div class="col">
+	    	    {{ form.resistencia(class="form-control", placeholder="(MPa)", type="number") }}
 				</div>
-		    </form>
-        </div>
-
-        <div class="col-9">
-	    	<br>
-			{% if abrams != 0 %}
-		        <h4>Concreto {{ res }} MPa</h4>
-		        <h4>Traço unitário (1 : a : b : a/c)</h4>
-		        <h4>  1 : {{ areia_unitaria }} : {{ brita_unitaria }} : {{ abrams }}</h4>
-		        <br>
-		        <h4>Teor de materiais secos</h4>
-		        <h4>  m = {{ lyse }} </h4>
-		        <br>
-		        <h4>Consumo de cimento</h4>
-		        <h4>  C = {{ molinari }}</h4>
-			{% endif %}
-		</div>
+				<div class="col">
+		        {{ form.calcular(class="btn btn-secondary") }}
+				</div>
+			</div>
+	    </form>
+    </div>
+    <br>
+	<div class="row">
+		{% if abrams != 0 %}
+	        <h4>Concreto {{ res }} MPa</h4>
+	        <h4>Traço unitário (1 : a : b : a/c)</h4>
+	        <h4>  1 : {{ areia_unitaria }} : {{ brita_unitaria }} : {{ abrams }}</h4>
+	        <br>
+	        <h4>Teor de materiais secos</h4>
+	        <h4>  m = {{ lyse }} </h4>
+	        <br>
+	        <h4>Consumo de cimento</h4>
+	        <h4>  C = {{ molinari }}</h4>
+		{% endif %}
 	</div>
 </div>
 
