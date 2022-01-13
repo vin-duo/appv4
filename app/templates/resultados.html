@@ -48,17 +48,45 @@
                     <table class="table table-dark">
                         <tbody>
                         <tr>
-                            <td class="text-center">Lei de Abrams</td>
-                            <td class="text-center">Lei de Lyse</td>
-                            <td class="text-center">Lei de Molignari</td>
+                            <td class="text-center">Idade (dias)</td>
+                            <td colspan="2" class="text-center">Lei de Abrams</td>
+                            <td colspan="2" class="text-center">Lei de Lyse</td>
+                            <td colspan="2" class="text-center">Lei de Molignari</td>
                         </tr>
+                        {% if r28 %}
                         <tr>
-                            <td class="text-center">k1: {{ r.k1() }}</td>
-                            <td class="text-center">k3: {{ r.k3() }}</td>
-                            <td class="text-center">k5: {{ r.k5() }}</td></tr>
-                            <td class="text-center">k2: {{ r.k2() }}</td>
-                            <td class="text-center">k4: {{ r.k4() }}</td>
-                            <td class="text-center">k6: {{ r.k6() }}</td>
+                            <td class="text-center">28</td>
+                            <td class="text-center">k1: {{ r28.k1() }}</td>
+                            <td class="text-center">k2: {{ r28.k2() }}</td>
+                            <td class="text-center">k3: {{ r28.k3() }}</td>
+                            <td class="text-center">k4: {{ r28.k4() }}</td>
+                            <td class="text-center">k5: {{ r28.k5() }}</td>
+                            <td class="text-center">k6: {{ r28.k6() }}</td>
+                        </tr>
+                        {% endif%}
+                        {% if r14 %}
+                        <tr>
+                            <td class="text-center">14</td>
+                            <td class="text-center">k1: {{ r14.k1() }}</td>
+                            <td class="text-center">k2: {{ r14.k2() }}</td>
+                            <td class="text-center">k3: {{ r14.k3() }}</td>
+                            <td class="text-center">k4: {{ r14.k4() }}</td>
+                            <td class="text-center">k5: {{ r14.k5() }}</td>
+                            <td class="text-center">k6: {{ r14.k6() }}</td>
+                        </tr>
+                        {% endif%}
+                        {% if r7 %}
+                        <tr>
+                            <td class="text-center">7</td>
+                            <td class="text-center">k1: {{ r7.k1() }}</td>
+                            <td class="text-center">k2: {{ r7.k2() }}</td>
+                            <td class="text-center">k3: {{ r7.k3() }}</td>
+                            <td class="text-center">k4: {{ r7.k4() }}</td>
+                            <td class="text-center">k5: {{ r7.k5() }}</td>
+                            <td class="text-center">k6: {{ r7.k6() }}</td>
+                        </tr>
+                        {% endif%}
+
                         </tbody>
                     </table>
                 </div>
@@ -206,7 +234,7 @@
                     </tr>
                 {% for i in p %}
                     <tr>
-                    <td>p.index(i)</td>
+                    <td>{{ p.index(i)+1 }}</td>
                     <td>{{ i.idade }} dias</td>
                     <td>{{ i.resistencia }} MPa</td>
                     </tr>
@@ -222,7 +250,7 @@
                     </tr>
                 {% for i in ri %}
                     <tr>
-                    <td>ri.index(i)</td>
+                    <td>{{ ri.index(i)+1 }}</td>
                     <td>{{ i.idade }} dias</td>
                     <td>{{ i.resistencia }} MPa</td>
                     </tr>
@@ -238,7 +266,7 @@
                     </tr>
                 {% for i in pb %}
                     <tr>
-                    <td>pb.index(i)</td>
+                    <td>{{ pb.index(i)+1 }}</td>
                     <td>{{ i.idade }} dias</td>
                     <td>{{ i.resistencia }} MPa</td>
                     </tr>

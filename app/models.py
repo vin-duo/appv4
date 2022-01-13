@@ -175,6 +175,7 @@ class Resultados(db.Model):
     k4 = db.Column(db.Float)
     k5 = db.Column(db.Float)
     k6 = db.Column(db.Float)
+    idade = db.Column(db.Integer)
 
     ensaio_id = db.Column(db.Integer, db.ForeignKey('ensaios.id'))
 

@@ -514,23 +514,6 @@ def resultados(id):
     acr = d.dosagem_rico[-1].agua/d.dosagem_rico[-1].c_massa
     acpb = d.dosagem_pobre[-1].agua/d.dosagem_pobre[-1].c_massa
 
-#resistencias
-    p = d.cp_piloto
-    ri = d.cp_rico
-    pb = d.cp_pobre
-
-    numero_de_cp_rico = Cp_rico.query.filter_by(ensaio_id=id).count()
-    numero_de_cp_piloto = Cp_piloto.query.filter_by(ensaio_id=id).count()
-    numero_de_cp_pobre = Cp_pobre.query.filter_by(ensaio_id=id).count()
-
-    media_resistencia_rico = 0
-    media_resistencia_piloto = 0
-    media_resistencia_pobre = 0
-
-    resistencias_piloto = Cp_piloto.query.filter_by(ensaio_id=id, idade=28).all()
-    resistencias_rico = Cp_rico.query.filter_by(ensaio_id=id, idade=28).all()
-    resistencias_pobre = Cp_pobre.query.filter_by(ensaio_id=id, idade=28).all()
-
     kgp = Consumo_piloto.query.filter_by(ensaio_id=id).first().kg_piloto
     kgr = Consumo_rico.query.filter_by(ensaio_id=id).first().kg_rico
     kgpb = Consumo_pobre.query.filter_by(ensaio_id=id).first().kg_pobre
@@ -543,36 +526,170 @@ def resultados(id):
     consumor = gamar / (1+d.piloto+acr)
     consumopb = gamapb / (1+d.piloto+acpb)
 
-    for i in resistencias_piloto:
-        media_resistencia_piloto = media_resistencia_piloto + i.resistencia/numero_de_cp_piloto
 
-    for i in resistencias_rico:
-        media_resistencia_rico = media_resistencia_rico + i.resistencia/numero_de_cp_rico
+#resistencias
+    p = d.cp_piloto
+    ri = d.cp_rico
+    pb = d.cp_pobre
 
-    for i in resistencias_pobre:
-        media_resistencia_pobre = media_resistencia_pobre + i.resistencia/numero_de_cp_pobre
+    numero_de_cp_rico7 = Cp_rico.query.filter_by(ensaio_id=id, idade=7).count()
+    numero_de_cp_piloto7 = Cp_piloto.query.filter_by(ensaio_id=id, idade=7).count()
+    numero_de_cp_pobre7 = Cp_pobre.query.filter_by(ensaio_id=id, idade=7).count()
 
-    rr = [media_resistencia_pobre, media_resistencia_piloto, media_resistencia_rico]
+    numero_de_cp_rico14 = Cp_rico.query.filter_by(ensaio_id=id, idade=14).count()
+    numero_de_cp_piloto14 = Cp_piloto.query.filter_by(ensaio_id=id, idade=14).count()
+    numero_de_cp_pobre14 = Cp_pobre.query.filter_by(ensaio_id=id, idade=14).count()
+
+    numero_de_cp_rico28 = Cp_rico.query.filter_by(ensaio_id=id, idade=28).count()
+    numero_de_cp_piloto28 = Cp_piloto.query.filter_by(ensaio_id=id, idade=28).count()
+    numero_de_cp_pobre28 = Cp_pobre.query.filter_by(ensaio_id=id, idade=28).count()
+
+    media_resistencia_rico7 = 0
+    media_resistencia_piloto7 = 0
+    media_resistencia_pobre7 = 0
+
+    media_resistencia_rico14 = 0
+    media_resistencia_piloto14 = 0
+    media_resistencia_pobre14 = 0
+
+    media_resistencia_rico28 = 0
+    media_resistencia_piloto28 = 0
+    media_resistencia_pobre28 = 0
+
+    resistencias_piloto7 = Cp_piloto.query.filter_by(ensaio_id=id, idade=7).all()
+    resistencias_rico7 = Cp_rico.query.filter_by(ensaio_id=id, idade=7).all()
+    resistencias_pobre7 = Cp_pobre.query.filter_by(ensaio_id=id, idade=7).all()
+
+    resistencias_piloto14 = Cp_piloto.query.filter_by(ensaio_id=id, idade=14).all()
+    resistencias_rico14 = Cp_rico.query.filter_by(ensaio_id=id, idade=14).all()
+    resistencias_pobre14 = Cp_pobre.query.filter_by(ensaio_id=id, idade=14).all()
+
+    resistencias_piloto28 = Cp_piloto.query.filter_by(ensaio_id=id, idade=28).all()
+    resistencias_rico28 = Cp_rico.query.filter_by(ensaio_id=id, idade=28).all()
+    resistencias_pobre28 = Cp_pobre.query.filter_by(ensaio_id=id, idade=28).all()
+
+    for i in resistencias_piloto7:
+        media_resistencia_piloto7 = media_resistencia_piloto7 + i.resistencia/numero_de_cp_piloto7
+    for i in resistencias_rico7:
+        media_resistencia_rico7 = media_resistencia_rico7 + i.resistencia/numero_de_cp_rico7
+    for i in resistencias_pobre7:
+        media_resistencia_pobre7 = media_resistencia_pobre7 + i.resistencia/numero_de_cp_pobre7
+
+    for i in resistencias_piloto14:
+        media_resistencia_piloto14 = media_resistencia_piloto14 + i.resistencia/numero_de_cp_piloto14
+    for i in resistencias_rico14:
+        media_resistencia_rico14 = media_resistencia_rico14 + i.resistencia/numero_de_cp_rico14
+    for i in resistencias_pobre14:
+        media_resistencia_pobre14 = media_resistencia_pobre14 + i.resistencia/numero_de_cp_pobre14
+
+    for i in resistencias_piloto28:
+        media_resistencia_piloto28 = media_resistencia_piloto28 + i.resistencia/numero_de_cp_piloto28
+    for i in resistencias_rico28:
+        media_resistencia_rico28 = media_resistencia_rico28 + i.resistencia/numero_de_cp_rico28
+    for i in resistencias_pobre28:
+        media_resistencia_pobre28 = media_resistencia_pobre28 + i.resistencia/numero_de_cp_pobre28
+
+#resistencias
+    rr7 = [media_resistencia_pobre7, media_resistencia_piloto7, media_resistencia_rico7]
+    rr14 = [media_resistencia_pobre14, media_resistencia_piloto14, media_resistencia_rico14]
+    rr28 = [media_resistencia_pobre28, media_resistencia_piloto28, media_resistencia_rico28]
     ac = [acpb, acp, acr]
     m = [d.pobre, d.piloto, d.rico]
     cc = [consumopb,consumop,consumor]
-    r = Regressao(rr, ac, m, cc)
 
-    if d.resultados == []:
-        resultado = Resultados(k1=r.k1(), k2=r.k2(), k3=r.k3(), k4=r.k4(), k5=r.k5(), k6=r.k6(), ensaio=d)
-        db.session.add(resultado)
+    teste7 = 1
+    teste14 = 1
+    teste28 = 1
+
+
+    for i in rr7:
+        if i == 0:
+            teste7 = 0
+
+    for i in rr14:
+        if i == 0:
+            teste14 = 0
+
+    for i in rr28:
+        if i == 0:
+            teste28 = 0
+
+    if teste7 == 1:
+        r7 = Regressao(rr7, ac, m, cc)
+    else:
+        r7 = None
+
+
+    if teste14 == 1:
+        r14 = Regressao(rr14, ac, m, cc)
+    else:
+        r14 = None
+
+    if teste28 == 1:
+        r28 = Regressao(rr28, ac, m, cc)
+    else:
+        r28 = None
+
+
+
+    d7 = Resultados.query.filter_by(ensaio_id=id, idade=7).first()
+    d14 = Resultados.query.filter_by(ensaio_id=id, idade=14).first()
+    d28 = Resultados.query.filter_by(ensaio_id=id, idade=28).first()
+    print('d28')
+    print(d28)
+    if d7 == None:
+        if r7:
+            resultado7 = Resultados(k1=r7.k1(), k2=r7.k2(), k3=r7.k3(), k4=r7.k4(), k5=r7.k5(), k6=r7.k6(), idade=7, ensaio=d)
+            db.session.add(resultado7)
+            db.session.commit()
+    elif r7:
+        d7.k1 = r7.k1()
+        d7.k2 = r7.k2()
+        d7.k3 = r7.k3()
+        d7.k4 = r7.k4()
+        d7.k5 = r7.k5()
+        d7.k6 = r7.k6()
         db.session.commit()
     else:
-        d.resultados[0].k1 = r.k1()
-        d.resultados[0].k2 = r.k2()
-        d.resultados[0].k3 = r.k3()
-        d.resultados[0].k4 = r.k4()
-        d.resultados[0].k5 = r.k5()
-        d.resultados[0].k6 = r.k6()
+        db.session.delete(d7)
         db.session.commit()
-    print('print do dosagem piloto')
-    print(d.dosagem_piloto)
-    return render_template('resultados.html', id=id, r=r, p=p, ri=ri, pb=pb, d=d, acp=round(acp,2), acpb=round(acpb,2), acr=round(acr,2))
+
+
+    if d14 == None:
+        if r14:
+            resultado14 = Resultados(k1=r14.k1(), k2=r14.k2(), k3=r14.k3(), k4=r14.k4(), k5=r14.k5(), k6=r14.k6(), idade=14, ensaio=d)
+            db.session.add(resultado14)
+            db.session.commit()
+    elif r14:
+        d14.k1 = r14.k1()
+        d14.k2 = r14.k2()
+        d14.k3 = r14.k3()
+        d14.k4 = r14.k4()
+        d14.k5 = r14.k5()
+        d14.k6 = r14.k6()
+        db.session.commit()
+    else:
+        db.session.delete(d14)
+        db.session.commit()
+
+    if d28 == None:
+        if r28:
+            resultado28 = Resultados(k1=r28.k1(), k2=r28.k2(), k3=r28.k3(), k4=r28.k4(), k5=r28.k5(), k6=r28.k6(), idade=28, ensaio=d)
+            db.session.add(resultado28)
+            db.session.commit()
+    elif r28:
+        d28.k1 = r28.k1()
+        d28.k2 = r28.k2()
+        d28.k3 = r28.k3()
+        d28.k4 = r28.k4()
+        d28.k5 = r28.k5()
+        d28.k6 = r28.k6()
+        db.session.commit()
+    else:
+        db.session.delete(d28)
+        db.session.commit()
+
+    return render_template('resultados.html', id=id, r7=r7,  r14=r14, r28=r28, p=p, ri=ri, pb=pb, d=d, acp=round(acp,2), acpb=round(acpb,2), acr=round(acr,2))
 
 
 @app.route('/calculadora/<int:id>', methods=['POST', 'GET'])
