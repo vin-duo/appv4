@@ -41,7 +41,7 @@
 			<div class="row row-cols-2">
 				{{ form.hidden_tag() }}
 				<div class="col">
-	    	    {{ form.resistencia(class="form-control", placeholder="(MPa)", type="number") }}
+	    	    {{ form.resistencia(class="form-control", placeholder="(MPa)", type="number" step="any") }}
 				</div>
 				<div class="col">
 		        {{ form.calcular(class="btn btn-secondary") }}
