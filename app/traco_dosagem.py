@@ -9,7 +9,7 @@ class Ensaio():
         self.agua = agua
         self.umidade = umidade
         self.pesobrita = pesobrita
-        self.alfaantigo = alfaantigo
+        self.alfaantigo = alfaantigo/100
         self.arredondamento = arredondamento
 
     def massas_unitarias(self):
