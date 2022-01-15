@@ -82,7 +82,7 @@
     <form method="POST" action="/agua">
         <tr>
             <td>{{ i.indice }}</td>
-            <td>{{ i.alfa }}</td>
+            <td>{{ i.alfa*100 }} %</td>
             {% if i.indice == 1 %}
                 <td>{{ i.c_massa }}</td>
                 <td>{{ i.a_massa }}</td>
