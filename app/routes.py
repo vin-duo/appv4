@@ -17,12 +17,7 @@ def pobre(id):
     slump = ensaio_salvo.slump
     m = ensaio_salvo.piloto
     mp = ensaio_salvo.pobre
-    alfa = round(ensaio_salvo.dosagem_pobre[0].alfa*100)
-    if m % 1 == 0:
-        m = int(m)
-    if mp % 1 == 0:
-        mp = int(mp)
-    return render_template("pobre.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mp=mp, alfa=alfa)
+    return render_template("pobre.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mp=mp)
 
 @app.route('/rico/<int:id>', methods=['POST', 'GET'])
 def rico(id):
@@ -30,17 +25,7 @@ def rico(id):
     slump = ensaio_salvo.slump
     m = ensaio_salvo.piloto
     mr = ensaio_salvo.rico
-    alfa = round(ensaio_salvo.dosagem_pobre[0].alfa*100)
-    if m % 1 == 0:
-        m = int(m)
-    if mr % 1 == 0:
-        mr = int(mr)
-    return render_template("rico.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mr=mr, alfa=alfa)
-
-
-
-
-
+    return render_template("rico.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mr=mr)
 
 
 
