@@ -17,7 +17,7 @@ class Criar_ensaio(FlaskForm):
     pobre = FloatField('Traço Pobre', validators=[InputRequired(message='Campo necessario')])
 #    cp = FloatField('cp')
     pesobrita = FloatField('Brita (kg)', validators=[InputRequired(message='Campo necessario')])
-    slump = FloatField('slump (mm)', validators=[InputRequired(message='Campo necessario')])
+    slump = FloatField('Abatimento de tronco de cone (slump test) (mm)', validators=[InputRequired(message='Campo necessario')])
 #    umidade = FloatField('umidade (%)')
     volume_recipiente = FloatField('Volume do recipiente (m3)', validators=[InputRequired(message='Campo necessario')])
     submit = SubmitField('Registrar')

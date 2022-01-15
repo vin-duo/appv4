@@ -245,6 +245,16 @@ def dosagem_auxiliar(id):
     form = Alfa_auxiliar()
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
 
+    m = ensaio_salvo.piloto
+    mp = ensaio_salvo.pobre
+    mr = ensaio_salvo.rico
+    if m % 1 == 0:
+        m = int(m)
+    if mp % 1 == 0:
+        mp = int(mp)
+    if mr % 1 == 0:
+        mr = int(mr)
+
     m_rico = ensaio_salvo.rico
     m_pobre = ensaio_salvo.pobre
 #    cp = ensaio_salvo.cp
@@ -352,7 +362,7 @@ def dosagem_auxiliar(id):
             db.session.add(add_no_db_pobre)
             db.session.commit()
         return redirect('/auxiliar/{}'.format(id))
-    return render_template("auxiliar.html", form=form, ensaio_salvo=ensaio_salvo, id=id, m_rico=m_rico, m_pobre=m_pobre, slump=slump)
+    return render_template("auxiliar.html", form=form, ensaio_salvo=ensaio_salvo, id=id, m_rico=m_rico, m_pobre=m_pobre, slump=slump, m=m, mp=mp, mr=mr)
 
 
 @app.route('/dosagem/delete/<int:id>')#esse id é da linha na tabela Dosagem_piloto
