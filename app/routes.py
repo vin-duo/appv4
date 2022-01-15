@@ -227,105 +227,104 @@ def dosagem(id):
         db.session.add(add_no_db)
         db.session.commit()
 
-        if form.validate_on_submit():
-            if ensaio_salvo.dosagem_rico == []:
-                traco = Ensaio(
-                    m = m_rico,
-                    alfa = form.alfa.data, 
-                    pesobrita = pesobrita)
+	    if ensaio_salvo.dosagem_rico == []:
+	        traco = Ensaio(
+	            m = m_rico,
+	            alfa = form.alfa.data, 
+	            pesobrita = pesobrita)
 
-                add_no_db_rico = Dosagem_rico(
-                    alfa = form.alfa.data,
-                    c_unitario = traco.massas_unitarias()[0],
-                    a_unitario = traco.massas_unitarias()[1],
-                    b_unitario = traco.massas_unitarias()[2],
-                    
-                    c_massa = traco.massas_iniciais()[0],
-                    a_massa = traco.massas_iniciais()[1],
-                    b_massa = traco.massas_iniciais()[2],
-                    
-                    c_acr = traco.quantidades_adicionar()[0],
-                    a_acr = traco.quantidades_adicionar()[1],
-                    
-                    agua = 0,
-                    ensaio = ensaio_salvo)
+	        add_no_db_rico = Dosagem_rico(
+	            alfa = form.alfa.data,
+	            c_unitario = traco.massas_unitarias()[0],
+	            a_unitario = traco.massas_unitarias()[1],
+	            b_unitario = traco.massas_unitarias()[2],
+	            
+	            c_massa = traco.massas_iniciais()[0],
+	            a_massa = traco.massas_iniciais()[1],
+	            b_massa = traco.massas_iniciais()[2],
+	            
+	            c_acr = traco.quantidades_adicionar()[0],
+	            a_acr = traco.quantidades_adicionar()[1],
+	            
+	            agua = 0,
+	            ensaio = ensaio_salvo)
 
-                traco = Ensaio(
-                    m = m_pobre,
-                    alfa = form.alfa.data, 
-                    pesobrita = pesobrita)
+	        traco = Ensaio(
+	            m = m_pobre,
+	            alfa = form.alfa.data, 
+	            pesobrita = pesobrita)
 
-                add_no_db_pobre = Dosagem_pobre(
-                    alfa = form.alfa.data,
-                    c_unitario = traco.massas_unitarias()[0],
-                    a_unitario = traco.massas_unitarias()[1],
-                    b_unitario = traco.massas_unitarias()[2],
-                    
-                    c_massa = traco.massas_iniciais()[0],
-                    a_massa = traco.massas_iniciais()[1],
-                    b_massa = traco.massas_iniciais()[2],
-                    
-                    c_acr = traco.quantidades_adicionar()[0],
-                    a_acr = traco.quantidades_adicionar()[1],
-                    
-                    agua = 0,
-                    ensaio = ensaio_salvo)
+	        add_no_db_pobre = Dosagem_pobre(
+	            alfa = form.alfa.data,
+	            c_unitario = traco.massas_unitarias()[0],
+	            a_unitario = traco.massas_unitarias()[1],
+	            b_unitario = traco.massas_unitarias()[2],
+	            
+	            c_massa = traco.massas_iniciais()[0],
+	            a_massa = traco.massas_iniciais()[1],
+	            b_massa = traco.massas_iniciais()[2],
+	            
+	            c_acr = traco.quantidades_adicionar()[0],
+	            a_acr = traco.quantidades_adicionar()[1],
+	            
+	            agua = 0,
+	            ensaio = ensaio_salvo)
 
-                db.session.add(add_no_db_rico)
-                db.session.add(add_no_db_pobre)
-                db.session.commit()
+	        db.session.add(add_no_db_rico)
+	        db.session.add(add_no_db_pobre)
+	        db.session.commit()
 
-            elif ensaio_salvo.dosagem_rico[0].alfa < form.alfa.data:
-                rico_velho = ensaio_salvo.dosagem_rico[0]
-                pobre_velho = ensaio_salvo.dosagem_pobre[0]
-                db.session.delete(rico_velho)
-                db.session.delete(pobre_velho)
-                db.session.commit()
+	    elif ensaio_salvo.dosagem_rico[0].alfa < form.alfa.data:
+	        rico_velho = ensaio_salvo.dosagem_rico[0]
+	        pobre_velho = ensaio_salvo.dosagem_pobre[0]
+	        db.session.delete(rico_velho)
+	        db.session.delete(pobre_velho)
+	        db.session.commit()
 
-                traco = Ensaio(
-                    m = m_rico,
-                    alfa = form.alfa.data, 
-                    pesobrita = pesobrita)
+	        traco = Ensaio(
+	            m = m_rico,
+	            alfa = form.alfa.data, 
+	            pesobrita = pesobrita)
 
-                add_no_db_rico = Dosagem_rico(
-                    alfa = form.alfa.data,
-                    c_unitario = traco.massas_unitarias()[0],
-                    a_unitario = traco.massas_unitarias()[1],
-                    b_unitario = traco.massas_unitarias()[2],
-                    
-                    c_massa = traco.massas_iniciais()[0],
-                    a_massa = traco.massas_iniciais()[1],
-                    b_massa = traco.massas_iniciais()[2],
-                    
-                    c_acr = traco.quantidades_adicionar()[0],
-                    a_acr = traco.quantidades_adicionar()[1],
-                    
-                    agua = 0,
-                    ensaio = ensaio_salvo)
+	        add_no_db_rico = Dosagem_rico(
+	            alfa = form.alfa.data,
+	            c_unitario = traco.massas_unitarias()[0],
+	            a_unitario = traco.massas_unitarias()[1],
+	            b_unitario = traco.massas_unitarias()[2],
+	            
+	            c_massa = traco.massas_iniciais()[0],
+	            a_massa = traco.massas_iniciais()[1],
+	            b_massa = traco.massas_iniciais()[2],
+	            
+	            c_acr = traco.quantidades_adicionar()[0],
+	            a_acr = traco.quantidades_adicionar()[1],
+	            
+	            agua = 0,
+	            ensaio = ensaio_salvo)
 
-                traco = Ensaio(
-                    m = m_pobre,
-                    alfa = form.alfa.data, 
-                    pesobrita = pesobrita)
+	        traco = Ensaio(
+	            m = m_pobre,
+	            alfa = form.alfa.data, 
+	            pesobrita = pesobrita)
 
-                add_no_db_pobre = Dosagem_pobre(
-                    alfa = form.alfa.data,
-                    c_unitario = traco.massas_unitarias()[0],
-                    a_unitario = traco.massas_unitarias()[1],
-                    b_unitario = traco.massas_unitarias()[2],
-                    
-                    c_massa = traco.massas_iniciais()[0],
-                    a_massa = traco.massas_iniciais()[1],
-                    b_massa = traco.massas_iniciais()[2],
-                    
-                    c_acr = traco.quantidades_adicionar()[0],
-                    a_acr = traco.quantidades_adicionar()[1],
-                    
-                    agua = 0,
-                    ensaio = ensaio_salvo)
-                db.session.add(add_no_db_rico)
-                db.session.add(add_no_db_pobre)
-                db.session.commit()
+	        add_no_db_pobre = Dosagem_pobre(
+	            alfa = form.alfa.data,
+	            c_unitario = traco.massas_unitarias()[0],
+	            a_unitario = traco.massas_unitarias()[1],
+	            b_unitario = traco.massas_unitarias()[2],
+	            
+	            c_massa = traco.massas_iniciais()[0],
+	            a_massa = traco.massas_iniciais()[1],
+	            b_massa = traco.massas_iniciais()[2],
+	            
+	            c_acr = traco.quantidades_adicionar()[0],
+	            a_acr = traco.quantidades_adicionar()[1],
+	            
+	            agua = 0,
+	            ensaio = ensaio_salvo)
+	        db.session.add(add_no_db_rico)
+	        db.session.add(add_no_db_pobre)
+	        db.session.commit()
 
         return redirect ('/dosagem/{}'.format(id))
     return render_template("dosagem.html", form=form, id=id, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo, m=m, slump=slump, pesobrita=pesobrita, alfa_ordenado=alfa_ordenado)
