@@ -3,7 +3,6 @@
 {% block content %}
 
 
-<h1>Resultados obtidos pelo ensaio</h1>
 
 
 <div class="container">
@@ -15,13 +14,15 @@
                 <a class="nav-link" aria-current="page" href="/dosagem/{{ id }}">Piloto</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/auxiliar/{{ id }}">Auxiliar</a>
+                <a class="nav-link" href="/rico/{{ id }}">Rico</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/pobre/{{ id }}">Pobre</a>
+              </li>              <li class="nav-item">
                 <a class="nav-link" href="/consumo_cimento/{{ id }}">Consumo</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/corpo_de_prova/{{ id }}">Corpo de Prova</a>
+                <a class="nav-link" href="/corpo_de_prova/{{ id }}">Resistências à compressão</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="/resultados/{{ id }}">Resultados</a>
@@ -34,6 +35,7 @@
         </div>
     </div>
 
+    <h1>Resultados obtidos pelo ensaio</h1>
 
     <div class="accordion" id="accordionPanelsStayOpenExample">
         <div class="accordion-item">

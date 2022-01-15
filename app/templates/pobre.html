@@ -2,25 +2,20 @@
 
 {% block content %}
 
-
-
-
 <div class="container">
     <div class = "row">
+
         <div class="container">
 
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/dosagem/{{ id }}">Piloto</a>
+                <a class="nav-link" aria-current="page" href="/dosagem/{{ id }}">Piloto</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/rico/{{ id }}">Rico</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/pobre/{{ id }}">Pobre</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/auxiliar/{{ id }}">Auxiliar</a>
+                <a class="nav-link active" href="/pobre/{{ id }}">Pobre</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/consumo_cimento/{{ id }}">Consumo</a>
@@ -39,25 +34,12 @@
         </div>
     </div>
 
-    <h1>Determinação experimental da dosagem ideal de argamassa (alfa)</h1>
-    <!-- formulario para adicionar alfa -->
-    <div class=row>
-        <form method="POST">
-            <div class=col-2>
-                {{ form.hidden_tag() }}
-                {{ form.alfa(class="form-control", placeholder='Novo alfa') }}
-            </div>
-            <div class=col-2>
-                {{ form.submit(class="btn btn-secondary") }}
-            </div>
-        </form>                
-    </div>
-    <br>
-    <!-- fim -->
+    <h1>Dosagem de materiais para o traço pobre</h1>
 
-    <h4>Traço piloto (1:m)<br>Slump: {{ slump }} mm</h4>
 
-    <table class="table table-dark table-hover table-bordered">
+    <h4>Traço pobre (1:m+{{ mp - m }})<br>Slump: {{ slump }} mm</h4>
+
+    <table class="table table-dark">
     <thead>
         <tr>
             <th></th>
@@ -77,34 +59,30 @@
             <th></th>
         </tr>
     </thead>
+
     <tbody>
-    {% for i in alfa_ordenado %}
-    <form method="POST" action="/agua">
+    {% for i in ensaio_salvo.dosagem_pobre %}
+    <form method="POST" action="/agua_pobre">
         <tr>
-            <td>{{ i.indice }}</td>
-            <td>{{ i.alfa }}</td>
-            {% if i.indice == 1 %}
-                <td>{{ i.c_massa }}</td>
-                <td>{{ i.a_massa }}</td>
-                <td>{{ pesobrita }}</td>
-            {% else %}
-                <td> + {{ i.c_acr }}</td>
-                <td> + {{ i.a_acr }}</td>
-                <td> + 0 </td>
-            {% endif %}
-            <td><input type="hidden" value="{{ i.id }}" name="i_id">
-            <input type="text" size="1" class="form-control form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
-            <td><input type="submit" class="btn btn-secondary btn-sm" value="Update"></td>
-            <td><a type="button" class='btn btn-danger btn-sm' data-bs-toggle="modal" data-bs-target="#exampleModal{{ i.id }}">Deletar</a></td>
+        <td>{{ 1 }}</td>
+        <td>{{ i.alfa }}</td>
+        <td>{{ i.c_massa }}</td>
+        <td>{{ i.a_massa }}</td>
+        <td>{{ i.b_massa }}</td>
+        
+        <td><input type="hidden" value="{{ i.id }}" name="i_id">
+        <input type="text" size="1" class="form-control form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
+        <td><input type="submit" class="btn btn-secondary btn-sm" value="Update"></td>
+        <td></td>
         </tr>
     </form>
-
     {% endfor %}
     </tbody>
     </table>
 </div>
 
-{%for i in alfa_ordenado %}
+
+{%for i in ensaio_salvo.dosagem_pobre %}
 <!-- Modal -->
 <div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -114,17 +92,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Você tem certeza que deseja deletar a dosagem "alfa = {{ i.alfa }}" do traço piloto?
-        <br>Deletar uma dosagem pode ocasionar em divergências entre os materiais calculados e os materiais utilizados no ensaio em laboratório, comprometendo os resultados do ensaio.
+        Você tem certeza que deseja deletar a dosagem "alfa = {{ i.alfa }}" dos traços auxiliares?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="/dosagem/delete/{{ i.id }}"class="btn btn-danger">Deletar</a></td>
+        <a href="/dosagem_auxiliar/delete/{{ i.id }}" class="btn btn-danger">Deletar</a></td>
       </div>
     </div>
   </div>
 </div>
+
 {% endfor %}
+
 
 
 
