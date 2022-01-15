@@ -149,8 +149,11 @@ def editar_ensaio(id):
     form = Criar_ensaio()
 
     editar = Ensaios.query.get_or_404(id)
-    print(editar.volume)
+
     if form.validate_on_submit():
+        pesobrita_antigo = editar.pesobrita
+        mr_antigo = editar.rico
+        mpb_antigo = editar.pobre
         editar.nome = form.nome.data
         editar.piloto = form.piloto.data
         editar.rico = form.rico.data
@@ -161,6 +164,76 @@ def editar_ensaio(id):
 #        editar.umidade = form.umidade.data
         editar.volume = form.volume_recipiente.data
         db.session.commit()
+
+        if [mr_antigo, mpb_antigo, pesobrita_antigo] != [editar.rico, editar.pobre, editar.pesobrita]:
+            rico_velho = Dosagem_rico.query.filter_by(ensaio_id=id).first()
+            pobre_velho = Dosagem_pobre.query.filter_by(ensaio_id=id).first()
+            if rico_velho != []:
+                agua_rico = rico_velho.agua
+                agua_pobre = pobre_velho.agua
+                alfa_ideal = rico_velho.alfa
+
+                db.session.delete(rico_velho)
+                db.session.delete(pobre_velho)
+                db.session.commit()
+
+                traco = Ensaio(
+                    m = editar.rico,
+                    alfa = alfa_ideal, 
+                    pesobrita = editar.pesobrita)
+
+                add_no_db_rico = Dosagem_rico(
+                    alfa = alfa_ideal,
+                    c_unitario = traco.massas_unitarias()[0],
+                    a_unitario = traco.massas_unitarias()[1],
+                    b_unitario = traco.massas_unitarias()[2],
+    
+                    c_massa = traco.massas_iniciais()[0],
+                    a_massa = traco.massas_iniciais()[1],
+                    b_massa = traco.massas_iniciais()[2],
+    
+                    c_acr = traco.quantidades_adicionar()[0],
+                    a_acr = traco.quantidades_adicionar()[1],
+    
+                    agua = agua_rico,
+                    ensaio = editar)
+
+                traco = Ensaio(
+                    m = editar.pobre,
+                    alfa = alfa_ideal, 
+                    pesobrita = editar.pesobrita)
+
+                add_no_db_pobre = Dosagem_pobre(
+                    alfa = alfa_ideal,
+                    c_unitario = traco.massas_unitarias()[0],
+                    a_unitario = traco.massas_unitarias()[1],
+                    b_unitario = traco.massas_unitarias()[2],
+    
+                    c_massa = traco.massas_iniciais()[0],
+                    a_massa = traco.massas_iniciais()[1],
+                    b_massa = traco.massas_iniciais()[2],
+    
+                    c_acr = traco.quantidades_adicionar()[0],
+                    a_acr = traco.quantidades_adicionar()[1],
+    
+                    agua = agua_pobre,
+                    ensaio = editar)
+                db.session.add(add_no_db_rico)
+                db.session.add(add_no_db_pobre)
+                db.session.commit()
+
+
+
+
+
+
+
+
+
+
+
+
+
         return redirect('/home')
     return render_template('editar_ensaio.html', form=form, editar=editar)
 
