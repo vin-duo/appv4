@@ -44,7 +44,7 @@
         <tr>
             <th></th>
             <th></th>
-            <th colspan="4">Acréscimos para determinação do teor ideal de argamassa</th>
+            <th colspan="3">Acréscimos para determinação do teor ideal de argamassa</th>
             <th></th>
             <th></th>
         </tr>
@@ -56,7 +56,6 @@
             <th>Brita</th>
             <th>Água</th>
             <th></th>
-            <th></th>
         </tr>
     </thead>
 
@@ -65,7 +64,7 @@
     <form method="POST" action="/agua_pobre">
         <tr>
         <td>{{ 1 }}</td>
-        <td>{{ i.alfa*100 }} %</td>
+        <td>{{ alfa }} %</td>
         <td>{{ i.c_massa }}</td>
         <td>{{ i.a_massa }}</td>
         <td>{{ i.b_massa }}</td>
@@ -73,37 +72,12 @@
         <td><input type="hidden" value="{{ i.id }}" name="i_id">
         <input type="text" size="1" class="form-control form-control-sm" value="{{ i.agua }}" name="valor_agua_novo"></td>
         <td><input type="submit" class="btn btn-secondary btn-sm" value="Update"></td>
-        <td></td>
         </tr>
     </form>
     {% endfor %}
     </tbody>
     </table>
 </div>
-
-
-{%for i in ensaio_salvo.dosagem_pobre %}
-<!-- Modal -->
-<div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Deletar Ensaio</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Você tem certeza que deseja deletar a dosagem "alfa = {{ i.alfa }}" dos traços auxiliares?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="/dosagem_auxiliar/delete/{{ i.id }}" class="btn btn-danger">Deletar</a></td>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% endfor %}
-
 
 
 

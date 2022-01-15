@@ -5,7 +5,7 @@ class Ensaio():
     def __init__(self,m=5, cp=13.56, alfa=0, alfaantigo=0, agua=0, umidade=0, pesobrita=0, arredondamento=3):
         self.m = m
         self.cp = cp
-        self.alfa = alfa #para dar em (%)
+        self.alfa = alfa/100 #para dar em (%)
         self.agua = agua
         self.umidade = umidade
         self.pesobrita = pesobrita

@@ -17,11 +17,12 @@ def pobre(id):
     slump = ensaio_salvo.slump
     m = ensaio_salvo.piloto
     mp = ensaio_salvo.pobre
+    alfa = round(ensaio_salvo.dosagem_pobre[0].alfa*100)
     if m % 1 == 0:
         m = int(m)
     if mp % 1 == 0:
         mp = int(mp)
-    return render_template("pobre.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mp=mp)
+    return render_template("pobre.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mp=mp, alfa=alfa)
 
 @app.route('/rico/<int:id>', methods=['POST', 'GET'])
 def rico(id):
@@ -29,11 +30,12 @@ def rico(id):
     slump = ensaio_salvo.slump
     m = ensaio_salvo.piloto
     mr = ensaio_salvo.rico
+    alfa = round(ensaio_salvo.dosagem_pobre[0].alfa*100)
     if m % 1 == 0:
         m = int(m)
     if mr % 1 == 0:
         mr = int(mr)
-    return render_template("rico.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mr=mr)
+    return render_template("rico.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mr=mr, alfa=alfa)
 
 
 
@@ -236,7 +238,7 @@ def dosagem(id):
 
 
     if form.validate_on_submit():#form.alfa.data o usuario digita em % mas salva em decimal.
-        add_no_db = Dosagem_piloto(alfa=form.alfa.data/100, agua=0, ensaio=ensaio_salvo)
+        add_no_db = Dosagem_piloto(alfa=form.alfa.data, agua=0, ensaio=ensaio_salvo)
         db.session.add(add_no_db)
         db.session.commit()
 
@@ -244,11 +246,11 @@ def dosagem(id):
             if ensaio_salvo.dosagem_rico == []:
                 traco = Ensaio(
                     m = m_rico,
-                    alfa = form.alfa.data/100, 
+                    alfa = form.alfa.data, 
                     pesobrita = pesobrita)
 
                 add_no_db_rico = Dosagem_rico(
-                    alfa = form.alfa.data/100,
+                    alfa = form.alfa.data,
                     c_unitario = traco.massas_unitarias()[0],
                     a_unitario = traco.massas_unitarias()[1],
                     b_unitario = traco.massas_unitarias()[2],
@@ -265,11 +267,11 @@ def dosagem(id):
 
                 traco = Ensaio(
                     m = m_pobre,
-                    alfa = form.alfa.data/100, 
+                    alfa = form.alfa.data, 
                     pesobrita = pesobrita)
 
                 add_no_db_pobre = Dosagem_pobre(
-                    alfa = form.alfa.data/100,
+                    alfa = form.alfa.data,
                     c_unitario = traco.massas_unitarias()[0],
                     a_unitario = traco.massas_unitarias()[1],
                     b_unitario = traco.massas_unitarias()[2],
@@ -288,7 +290,7 @@ def dosagem(id):
                 db.session.add(add_no_db_pobre)
                 db.session.commit()
 
-            elif ensaio_salvo.dosagem_rico[0].alfa < form.alfa.data/100:
+            elif ensaio_salvo.dosagem_rico[0].alfa < form.alfa.data:
                 rico_velho = ensaio_salvo.dosagem_rico[0]
                 pobre_velho = ensaio_salvo.dosagem_pobre[0]
                 db.session.delete(rico_velho)
@@ -297,11 +299,11 @@ def dosagem(id):
 
                 traco = Ensaio(
                     m = m_rico,
-                    alfa = form.alfa.data/100, 
+                    alfa = form.alfa.data, 
                     pesobrita = pesobrita)
 
                 add_no_db_rico = Dosagem_rico(
-                    alfa = form.alfa.data/100,
+                    alfa = form.alfa.data,
                     c_unitario = traco.massas_unitarias()[0],
                     a_unitario = traco.massas_unitarias()[1],
                     b_unitario = traco.massas_unitarias()[2],
@@ -318,11 +320,11 @@ def dosagem(id):
 
                 traco = Ensaio(
                     m = m_pobre,
-                    alfa = form.alfa.data/100, 
+                    alfa = form.alfa.data, 
                     pesobrita = pesobrita)
 
                 add_no_db_pobre = Dosagem_pobre(
-                    alfa = form.alfa.data/100,
+                    alfa = form.alfa.data,
                     c_unitario = traco.massas_unitarias()[0],
                     a_unitario = traco.massas_unitarias()[1],
                     b_unitario = traco.massas_unitarias()[2],
@@ -363,7 +365,7 @@ def update_agua_rico():#o nome "valor_alfa" é o nome dado no html para um eleme
     nova_agua.agua = valor_agua_novo
     db.session.commit()
     a = nova_agua.ensaio.id
-    return redirect("/auxiliar/{}".format(a))
+    return redirect("/rico/{}".format(a))
 
 
 @app.route("/agua_pobre", methods=["POST"])
@@ -374,7 +376,7 @@ def update_agua_pobre():#o nome "valor_alfa" é o nome dado no html para um elem
     nova_agua.agua = valor_agua_novo
     db.session.commit()
     a = nova_agua.ensaio.id
-    return redirect("/auxiliar/{}".format(a))
+    return redirect("/pobre/{}".format(a))
 
 
 @app.route('/auxiliar/<int:id>', methods=['POST', 'GET'])

@@ -20,9 +20,6 @@
                 <a class="nav-link" href="/pobre/{{ id }}">Pobre</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/auxiliar/{{ id }}">Auxiliar</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="/consumo_cimento/{{ id }}">Consumo</a>
               </li>
               <li class="nav-item">
@@ -45,7 +42,7 @@
         <form method="POST">
             <div class=col-2>
                 {{ form.hidden_tag() }}
-                {{ form.alfa(class="form-control", placeholder='Novo alfa') }}
+                {{ form.alfa(class="form-control", type="number", step="any", placeholder='Novo alfa') }}
             </div>
             <div class=col-2>
                 {{ form.submit(class="btn btn-secondary") }}
@@ -82,7 +79,7 @@
     <form method="POST" action="/agua">
         <tr>
             <td>{{ i.indice }}</td>
-            <td>{{ i.alfa*100 }} %</td>
+            <td>{{ i.alfa }} %</td>
             {% if i.indice == 1 %}
                 <td>{{ i.c_massa }}</td>
                 <td>{{ i.a_massa }}</td>
