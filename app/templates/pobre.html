@@ -34,7 +34,7 @@
 
 
     <h4>Traço pobre (1:m+{{ mp - m }})<br>Slump: {{ slump }} mm</h4>
-
+    <div class="table-responsive">
     <table class="table table-dark">
     <thead>
         <tr>
@@ -73,7 +73,7 @@
     {% endfor %}
     </tbody>
     </table>
-
+    </div>
     <div>
       Adicionar pesagem do concreto fresco (kg)
       <form method="POST" action="/pobre/pesagem/{{ id }}">
