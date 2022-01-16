@@ -26,10 +26,6 @@ class Alfa(FlaskForm):
     alfa = FloatField('Alfa:')
     submit = SubmitField('Registrar')
 
-class Alfa_auxiliar(FlaskForm):
-    alfa_auxiliar = FloatField('Alfa:')
-    submit = SubmitField('Registrar')
-
 class Calcular(FlaskForm):
     resistencia = FloatField('Resistencia')
     calcular = SubmitField('Calcular')

@@ -2,9 +2,6 @@
 
 {% block content %}
 
-
-
-
 <div class="container">
     <div class = "row">
         <div class="container">
@@ -18,9 +15,6 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/pobre/{{ id }}">Pobre</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/consumo_cimento/{{ id }}">Consumo</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/corpo_de_prova/{{ id }}">Resistências à compressão</a>
@@ -99,6 +93,15 @@
     {% endfor %}
     </tbody>
     </table>
+
+    <div>
+      Adicionar pesagem do concreto fresco (kg)
+      <form method="POST" action="/dosagem/pesagem/{{ id }}">
+      <input type="text" size="1" class="form-control form-control-sm" value="{{ c.kg_piloto }}" name="pesagem_piloto">
+      <input type="submit" class="btn btn-secondary btn-sm" value="Update">
+      </form>
+    </div>
+
 </div>
 
 {%for i in alfa_ordenado %}

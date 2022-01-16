@@ -4,7 +4,6 @@
 
 <div class="container">
     <div class = "row">
-
         <div class="container">
 
             <ul class="nav nav-tabs">
@@ -16,9 +15,6 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="/pobre/{{ id }}">Pobre</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/consumo_cimento/{{ id }}">Consumo</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/corpo_de_prova/{{ id }}">Resistências à compressão</a>
@@ -77,6 +73,15 @@
     {% endfor %}
     </tbody>
     </table>
+
+    <div>
+      Adicionar pesagem do concreto fresco (kg)
+      <form method="POST" action="/pobre/pesagem/{{ id }}">
+      <input type="text" size="1" class="form-control form-control-sm" value="{{ c.kg_pobre }}" name="pesagem_pobre">
+      <input type="submit" class="btn btn-secondary btn-sm" value="Update">
+      </form>
+    </div>
+
 </div>
 
 

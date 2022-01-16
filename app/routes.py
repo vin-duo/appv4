@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 from app import app, db
-from app.forms import Criar_ensaio, Alfa, Alfa_auxiliar, Calcular, Formulario_teste
+from app.forms import Criar_ensaio, Alfa, Calcular, Formulario_teste
 from app.models import Ensaios, Dosagem_piloto, Dosagem_rico, Dosagem_pobre, Cp_piloto, Cp_rico, Cp_pobre, Resultados, Teste, Consumo_piloto, Consumo_rico, Consumo_pobre
 from app.regressao import Regressao, Calculadora
 from app.traco_dosagem import Ensaio
@@ -14,18 +14,49 @@ def home():
 @app.route('/pobre/<int:id>', methods=['POST', 'GET'])
 def pobre(id):
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
+    c = Consumo_pobre.query.filter_by(ensaio_id=id).first()
     slump = ensaio_salvo.slump
     m = ensaio_salvo.piloto
     mp = ensaio_salvo.pobre
-    return render_template("pobre.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mp=mp)
+    return render_template("pobre.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mp=mp, c=c)
 
 @app.route('/rico/<int:id>', methods=['POST', 'GET'])
 def rico(id):
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
+    c = Consumo_rico.query.filter_by(ensaio_id=id).first()
     slump = ensaio_salvo.slump
     m = ensaio_salvo.piloto
     mr = ensaio_salvo.rico
-    return render_template("rico.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mr=mr)
+    return render_template("rico.html", ensaio_salvo=ensaio_salvo, id=id, slump=slump, m=m, mr=mr, c=c)
+
+
+
+
+
+@app.route('/dosagem/pesagem/<int:id>', methods=['POST', 'GET'])#esse id é da linha na tabela Dosagem_piloto
+def alterar_pesagem_piloto(id):
+	pesagem_salva = Consumo_piloto.query.filter_by(ensaio_id=id).first()
+	pesagem_salva.kg_piloto = request.form.get("pesagem_piloto")
+	db.session.commit()
+	return redirect('/dosagem/{}'.format(id))
+
+@app.route('/rico/pesagem/<int:id>', methods=['POST', 'GET'])#esse id é da linha na tabela Dosagem_piloto
+def alterar_pesagem_rico(id):
+    pesagem_salva = Consumo_rico.query.filter_by(ensaio_id=id).first()
+    pesagem_salva.kg_rico = request.form.get("pesagem_rico")
+    db.session.commit()
+    return redirect('/rico/{}'.format(id))
+
+@app.route('/pobre/pesagem/<int:id>', methods=['POST', 'GET'])#esse id é da linha na tabela Dosagem_piloto
+def alterar_pesagem_pobre(id):
+    pesagem_salva = Consumo_pobre.query.filter_by(ensaio_id=id).first()
+    pesagem_salva.kg_pobre = request.form.get("pesagem_pobre")
+    db.session.commit()
+    return redirect('/pobre/{}'.format(id))
+
+
+
+
 
 
 
@@ -78,7 +109,6 @@ def teste(id):
             db.session.commit()
             contador = contador + 1
             indice = indice + 1
-
 
     if form.validate_on_submit():
         testando = Teste(a=form.valor.data, ensaio=ensaio_salvo)
@@ -147,7 +177,6 @@ def apagar_ensaio(id):
 def editar_ensaio(id):
 
     form = Criar_ensaio()
-
     editar = Ensaios.query.get_or_404(id)
 
     if form.validate_on_submit():
@@ -222,18 +251,6 @@ def editar_ensaio(id):
                 db.session.add(add_no_db_pobre)
                 db.session.commit()
 
-
-
-
-
-
-
-
-
-
-
-
-
         return redirect('/home')
     return render_template('editar_ensaio.html', form=form, editar=editar)
 
@@ -241,15 +258,28 @@ def editar_ensaio(id):
 @app.route('/dosagem/<int:id>', methods=['POST', 'GET'])
 def dosagem(id):
     form = Alfa()
-
     ensaio_salvo = Ensaios.query.filter_by(id=id).first()
+
+    c = Consumo_piloto.query.filter_by(ensaio_id=id).first()
+    cr = Consumo_piloto.query.filter_by(ensaio_id=id).first()
+    cpb = Consumo_piloto.query.filter_by(ensaio_id=id).first()
+    if c == None:
+        kg_piloto = Consumo_piloto(kg_piloto=0, ensaio=ensaio_salvo)
+        db.session.add(kg_piloto)
+        db.session.commit()
+    if cr == None:
+        kg_rico = Consumo_rico(kg_rico=0, ensaio=ensaio_salvo)
+        db.session.add(kg_rico)
+        db.session.commit()
+    if cpb == None:
+        kg_pobre = Consumo_pobre(kg_pobre=0, ensaio=ensaio_salvo)
+        db.session.add(kg_pobre)
+        db.session.commit()
+
     dosagens_do_ensaio_salvo = ensaio_salvo.dosagem_piloto
     m = ensaio_salvo.piloto
-#    cp = ensaio_salvo.cp
     pesobrita = ensaio_salvo.pesobrita
     slump = ensaio_salvo.slump
-#    umidade = ensaio_salvo.umidade
-
 
     m_rico = ensaio_salvo.rico
     m_pobre = ensaio_salvo.pobre
@@ -400,7 +430,7 @@ def dosagem(id):
             db.session.commit()
 
         return redirect ('/dosagem/{}'.format(id))
-    return render_template("dosagem.html", form=form, id=id, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo, m=m, slump=slump, pesobrita=pesobrita, alfa_ordenado=alfa_ordenado)
+    return render_template("dosagem.html", form=form, id=id, dosagens_do_ensaio_salvo=dosagens_do_ensaio_salvo, m=m, slump=slump, pesobrita=pesobrita, alfa_ordenado=alfa_ordenado, c=c)
 
 
 @app.route("/agua", methods=["POST"])
@@ -647,9 +677,7 @@ def delete_auxiliar(id):
     #linha da dosagem a ser deletada
     dosagem_deletada_rico = Dosagem_rico.query.filter_by(id=id).first()
     dosagem_deletada_pobre = Dosagem_pobre.query.filter_by(id=id).first()
-
     id_do_ensaio = dosagem_deletada_rico.ensaio.id
-
     #id do ensaio que essa dosagem pertence (.ensaio é o backref pra achar o o elemento "pai")
 #    dosagem_deletada_pobre.ensaio.id
 #    dosagem_deletada_pobre.ensaio.id
@@ -659,6 +687,10 @@ def delete_auxiliar(id):
     db.session.commit()
 
     return redirect('/auxiliar/{}'.format(id_do_ensaio))
+
+
+
+
 
 
 @app.route('/corpo_de_prova/<int:id>', methods=['POST', 'GET'])
@@ -909,8 +941,6 @@ def resultados(id):
     d7 = Resultados.query.filter_by(ensaio_id=id, idade=7).first()
     d14 = Resultados.query.filter_by(ensaio_id=id, idade=14).first()
     d28 = Resultados.query.filter_by(ensaio_id=id, idade=28).first()
-    print('d28')
-    print(d28)
     if d7 == None:
         if r7:
             resultado7 = Resultados(k1=r7.k1(), k2=r7.k2(), k3=r7.k3(), k4=r7.k4(), k5=r7.k5(), k6=r7.k6(), idade=7, ensaio=d)
