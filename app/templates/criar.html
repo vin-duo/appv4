@@ -14,22 +14,22 @@
         {{ form.nome(class="form-control form-control-sm") }}<br>
 
         {{ form.pesobrita.label }}<br>
-        {{ form.pesobrita(class="form-control form-control-sm") }}<br>
+        {{ form.pesobrita(class="form-control form-control-sm", type="number", step="any") }}<br>
 
         {{ form.slump.label }}<br>
-        {{ form.slump(class="form-control form-control-sm") }}<br>
+        {{ form.slump(class="form-control form-control-sm", type="number", step="any") }}<br>
 
         {{ form.piloto.label }}<br>
-        {{ form.piloto(class="form-control form-control-sm", value=5) }}<br>
+        {{ form.piloto(class="form-control form-control-sm", value=5, type="number", step="any") }}<br>
 
         {{ form.rico.label }}<br>
-        {{ form.rico(class="form-control form-control-sm", value=4) }}<br>
+        {{ form.rico(class="form-control form-control-sm", value=4, type="number", step="any") }}<br>
 
         {{ form.pobre.label }}<br>
-        {{ form.pobre(class="form-control form-control-sm", value=6) }}<br>
+        {{ form.pobre(class="form-control form-control-sm", value=6, type="number", step="any") }}<br>
 
         {{ form.volume_recipiente.label }}<br>
-        {{ form.volume_recipiente(class="form-control form-control-sm", value=0.0075) }}<br>
+        {{ form.volume_recipiente(class="form-control form-control-sm", value=7.5, type="number", step="any") }}<br>
 
         {{ form.submit(class="btn btn-success") }}
     </form>

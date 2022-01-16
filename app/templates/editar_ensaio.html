@@ -14,22 +14,22 @@
         {{ form.nome(class="form-control form-control-sm", value=editar.nome) }}<br>
 
         {{ form.pesobrita.label }}<br>
-        {{ form.pesobrita(class="form-control form-control-sm", value=editar.pesobrita) }}<br>
+        {{ form.pesobrita(class="form-control form-control-sm", value=editar.pesobrita, type="number", step="any") }}<br>
 
         {{ form.slump.label }}<br>
-        {{ form.slump(class="form-control form-control-sm", value=editar.slump) }}<br>
+        {{ form.slump(class="form-control form-control-sm", value=editar.slump, type="number", step="any") }}<br>
 
         {{ form.piloto.label }}<br>
-        {{ form.piloto(class="form-control form-control-sm", value=editar.piloto) }}<br>
+        {{ form.piloto(class="form-control form-control-sm", value=editar.piloto, type="number", step="any") }}<br>
 
         {{ form.rico.label }}<br>
-        {{ form.rico(class="form-control form-control-sm", value=editar.rico) }}<br>
+        {{ form.rico(class="form-control form-control-sm", value=editar.rico, type="number", step="any") }}<br>
 
         {{ form.pobre.label }}<br>
-        {{ form.pobre(class="form-control form-control-sm", value=editar.pobre) }}<br>
+        {{ form.pobre(class="form-control form-control-sm", value=editar.pobre, type="number", step="any") }}<br>
 
         {{ form.volume_recipiente.label }}<br>
-        {{ form.volume_recipiente(class="form-control form-control-sm", value=editar.volume) }}<br>
+        {{ form.volume_recipiente(class="form-control form-control-sm", value=editar.volume, type="number", step="any") }}<br>
 
         {{ form.submit(class="btn btn-secondary") }}
     </form>

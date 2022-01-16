@@ -137,7 +137,7 @@ def criar():
         pobre = form.pobre.data,
         pesobrita = form.pesobrita.data,
         slump = form.slump.data,
-        volume = form.volume_recipiente.data)
+        volume = form.volume_recipiente.data/1000)
         db.session.add(novo_ensaio)
         db.session.commit()
 
@@ -191,7 +191,7 @@ def editar_ensaio(id):
         editar.pesobrita = form.pesobrita.data
         editar.slump = form.slump.data
 #        editar.umidade = form.umidade.data
-        editar.volume = form.volume_recipiente.data
+        editar.volume = form.volume_recipiente.data/1000
         db.session.commit()
 
         if [mr_antigo, mpb_antigo, pesobrita_antigo] != [editar.rico, editar.pobre, editar.pesobrita]:
