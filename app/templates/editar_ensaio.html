@@ -29,7 +29,7 @@
         {{ form.pobre(class="form-control form-control-sm", value=editar.pobre, type="number", step="any") }}<br>
 
         {{ form.volume_recipiente.label }}<br>
-        {{ form.volume_recipiente(class="form-control form-control-sm", value=editar.volume, type="number", step="any") }}<br>
+        {{ form.volume_recipiente(class="form-control form-control-sm", value=editar.volume*1000, type="number", step="any") }}<br>
 
         {{ form.submit(class="btn btn-secondary") }}
     </form>
