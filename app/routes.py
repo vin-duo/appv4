@@ -829,8 +829,8 @@ def resultados(id):
     gamar = kgr/recipiente
     gamapb = kgpb/recipiente
     consumop = gamap / (1+d.piloto+acp)
-    consumor = gamar / (1+d.piloto+acr)
-    consumopb = gamapb / (1+d.piloto+acpb)
+    consumor = gamar / (1+d.rico+acr)
+    consumopb = gamapb / (1+d.pobre+acpb)
 
 
 #resistencias
@@ -937,10 +937,20 @@ def resultados(id):
         r28 = None
 
 
-
     d7 = Resultados.query.filter_by(ensaio_id=id, idade=7).first()
     d14 = Resultados.query.filter_by(ensaio_id=id, idade=14).first()
     d28 = Resultados.query.filter_by(ensaio_id=id, idade=28).first()
+    print('kg')
+    print(kgp,kgr,kgpb)
+    print('massa especifica do concreto:')
+    print(gamap, gamar, gamapb)
+    print('denominador')
+    print((1+d.piloto+acp),(1+d.rico+acr),(1+d.pobre+acpb))
+    print('consumo de cimento:')
+    print(consumop, consumor, consumopb)
+    print('volume')
+    print(recipiente)
+    print(cc)
     if d7 == None:
         if r7:
             resultado7 = Resultados(k1=r7.k1(), k2=r7.k2(), k3=r7.k3(), k4=r7.k4(), k5=r7.k5(), k6=r7.k6(), idade=7, ensaio=d)
