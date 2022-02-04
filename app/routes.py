@@ -813,10 +813,11 @@ def resultados(id):
     d = Ensaios.query.filter_by(id=id).first()
 
 #calculo do agua cimento certo.
+    piloto_ordenado = Dosagem_piloto.query.filter_by(ensaio_id=id).order_by(Dosagem_piloto.alfa).all()
     a = []
     for i in range(len(d.dosagem_piloto)):
         a.append(d.dosagem_piloto[i].agua)
-    acp = sum(a)/d.dosagem_piloto[-1].c_massa
+    acp = sum(a)/piloto_ordenado[-1].c_massa
     acr = d.dosagem_rico[-1].agua/d.dosagem_rico[-1].c_massa
     acpb = d.dosagem_pobre[-1].agua/d.dosagem_pobre[-1].c_massa
 
@@ -1003,7 +1004,7 @@ def resultados(id):
         db.session.delete(d28)
         db.session.commit()
 
-    return render_template('resultados.html', id=id, r7=r7,  r14=r14, r28=r28, p=p, ri=ri, pb=pb, d=d, acp=round(acp,2), acpb=round(acpb,2), acr=round(acr,2))
+    return render_template('resultados.html', id=id, r7=r7,  r14=r14, r28=r28, p=p, ri=ri, pb=pb, d=d, acp=round(acp,2), acpb=round(acpb,2), acr=round(acr,2), piloto_ordenado=piloto_ordenado)
 
 
 @app.route('/calculadora/<int:id>', methods=['POST', 'GET'])

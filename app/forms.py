@@ -1,5 +1,4 @@
 from flask_wtf import FlaskForm
-
 from wtforms import StringField, SubmitField, FloatField, SelectField
 from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import InputRequired
@@ -12,7 +11,7 @@ class Formulario_teste(FlaskForm):
 
 class Criar_ensaio(FlaskForm):
     nome = StringField('Nome', validators=[InputRequired(message='Campo necessario')])
-    piloto = FloatField('Traço Piloto', validators=[InputRequired(message='Campo necessario')])
+    piloto = FloatField('Traço Intermediário', validators=[InputRequired(message='Campo necessario')])
     rico = FloatField('Traço Rico', validators=[InputRequired(message='Campo necessario')])
     pobre = FloatField('Traço Pobre', validators=[InputRequired(message='Campo necessario')])
 #    cp = FloatField('cp')
